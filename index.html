@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jazzmine Via Mendoza | Multimedia Arts Portfolio</title>
+    <meta name="description" content="Official portfolio of Jazzmine Via Chavenia Mendoza, a Multimedia Arts student specializing in visual design, video production, editorial layout, and visual storytelling.">
+    
+    <!-- PWA & Theme Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF2A85">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="android-chrome-192x192.png">
+
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    
+    <!-- Link to external CSS with cache-buster parameter -->
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                JAZZMINE
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-target="home">HOME</a></li>
+                <li><a href="#about" class="nav-link" data-target="about">ABOUT</a></li>
+                <li><a href="#education" class="nav-link" data-target="education">EDUCATION</a></li>
+                <li><a href="#inspiration" class="nav-link" data-target="inspiration">INSPIRATION</a></li>
+            </ul>
+            <a href="#contact" class="nav-hire-btn nav-link" data-target="contact">Hire Me</a>
+        </nav>
+    </header>
+
+    <!-- Floating Next / Previous Navigation Arrows -->
+    <button class="nav-arrow prev-arrow" id="prevBtn" aria-label="Previous Section">&#10094;</button>
+    <button class="nav-arrow next-arrow" id="nextBtn" aria-label="Next Section">&#10095;</button>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="tab-section active-tab">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="greeting">Hi, I'm JAZZMINE VIA</span>
+                <h1>I'm a Creator</h1>
+                <p class="hero-desc">
+                    A passionate Multimedia Arts student specializing in digital art, visual storytelling, and creating unique, high-performance web experiences.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="primary-button nav-link" data-target="contact">Hire Me</a>
+                    <a href="#about" class="secondary-button nav-link" data-target="about">Explore Portfolio</a>
+                </div>
+            </div>
+            <div class="photo-area">
+                <div class="photo-circle-frame">
+                    <img src="profile.jpg" alt="Jazzmine Via Mendoza">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="tab-section">
+        <div class="section-header">
+            <span class="section-tag">GET TO KNOW ME</span>
+            <h2>About Me</h2>
+        </div>
+
+        <div class="about-main-layout">
+            <!-- Left Column: Photo Frame + Personal Info Box -->
+            <div class="about-left-col">
+                <div class="about-photo-wrapper">
+                    <div class="about-circle-frame">
+                        <img src="profile.jpg" alt="Jazzmine Via Mendoza">
+                    </div>
+                </div>
+
+                <div class="about-card left-info-card">
+                    <ul class="specs-list">
+                        <li><strong>Full Name:</strong> Mendoza, Jazzmine Via C.</li>
+                        <li><strong>Birthday:</strong> January 08, 2006</li>
+                        <li><strong>Course:</strong> BMMA - University of the Cordilleras</li>
+                        <li><strong>Phone:</strong> 0950-914-3780</li>
+                        <li><strong>Interest:</strong> Digital Art, Manual Illustration, Sketching</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column: Personal Profile Bio + Skills Table -->
+            <div class="about-right-col">
+                <!-- Personal Profile Narrative Card -->
+                <div class="about-card profile-bio-card">
+                    <h3>Personal Profile</h3>
+                    <div class="bio-text">
+                        <p>
+                            I'm a 1st Year Multimedia Arts student at the University of the Cordilleras in Baguio City.
+                        </p>
+                        <p>
+                            I'm currently developing my skills in digital design, visual arts, and multimedia production, with a strong interest in graphic design, creative content, and digital media. I have practical skills in Canva, digital illustration, visual creativity, and creative design, and I'm continuously exploring new tools and techniques to improve my work.
+                        </p>
+                        <p>
+                            I'm looking for opportunities where I can apply my creativity, gain hands-on experience, collaborate with others, and grow as a multimedia artist and creative professional.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Skills Split Table Card -->
+                <div class="about-card skills-main-box">
+                    <h3 class="skills-main-title">Skills</h3>
+                    <div class="skills-internal-split">
+                        <div class="sub-skill-col">
+                            <h4 class="sub-skill-heading">Tech</h4>
+                            <div class="card-pink-divider"></div>
+                            <ul class="skills-list">
+                                <li>Digital Illustration</li>
+                                <li>Concept Mapping</li>
+                                <li>Vector Art</li>
+                                <li>Manual Drafting</li>
+                                <li>Storyboarding</li>
+                                <li>UI/UX Layout</li>
+                            </ul>
+                        </div>
+
+                        <div class="vertical-skills-divider"></div>
+
+                        <div class="sub-skill-col">
+                            <h4 class="sub-skill-heading">Strengths</h4>
+                            <div class="card-pink-divider"></div>
+                            <ul class="skills-list">
+                                <li>Creative Thinking</li>
+                                <li>Attention to Detail</li>
+                                <li>Visual Storytelling</li>
+                                <li>Adaptability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="tab-section">
+        <div class="section-header">
+            <span class="section-tag">ACADEMIC JOURNEY & HONORS</span>
+            <h2>Education & Distinctions</h2>
+        </div>
+
+        <div class="single-screen-education-grid">
+            <div class="timeline-column">
+                <h3 class="sub-col-title">Academic Pathway</h3>
+                <div class="compact-timeline">
+                    <div class="compact-item">
+                        <span class="year">2026 – PRESENT</span>
+                        <h4>University of the Cordilleras</h4>
+                        <p>Bachelor of Science in Multimedia Arts (BMMA)</p>
+                    </div>
+                    <div class="compact-item">
+                        <span class="year">2022 – 2024</span>
+                        <h4>Our Lady of the Sacred Heart College</h4>
+                        <p>Senior High School • STEM Strand</p>
+                    </div>
+                    <div class="compact-item">
+                        <span class="year">2018 – 2022</span>
+                        <h4>Sto. Domingo National Trade School</h4>
+                        <p>Junior High School</p>
+                    </div>
+                    <div class="compact-item">
+                        <span class="year">2012 – 2018</span>
+                        <h4>Triala Elementary School</h4>
+                        <p>Elementary Education • Academic Excellence</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="awards-column">
+                <h3 class="sub-col-title">Key Distinctions</h3>
+                <div class="compact-awards-grid">
+                    <div class="compact-award-card">
+                        <span class="award-badge">ACADEMICS</span>
+                        <h4>With Honors (2012–2024)</h4>
+                        <p>Consistent academic excellence across elementary & high school.</p>
+                    </div>
+                    <div class="compact-award-card">
+                        <span class="award-badge">BROADCASTING</span>
+                        <h4>TV Broadcasting Champion</h4>
+                        <p>DSPC 1st Place Champion (2023 & 2024).</p>
+                    </div>
+                    <div class="compact-award-card">
+                        <span class="award-badge">REGIONAL</span>
+                        <h4>RSPC 2nd & 3rd Place</h4>
+                        <p>Regional TV News Broadcast Production excellence.</p>
+                    </div>
+                    <div class="compact-award-card">
+                        <span class="award-badge">TECHNICAL</span>
+                        <h4>Best Technical Award</h4>
+                        <p>1st Place Technical mastery in DSPC & RSPC.</p>
+                    </div>
+                    <div class="compact-award-card">
+                        <span class="award-badge">EDITING</span>
+                        <h4>STEMazing Editing Champion</h4>
+                        <p>1st Place Science Video Editing Champion (2023).</p>
+                    </div>
+                    <div class="compact-award-card">
+                        <span class="award-badge">JOURNALISM</span>
+                        <h4>Feature & Editorial Champion</h4>
+                        <p>Excellence in journalistic storytelling & writing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSPIRATION SECTION -->
+    <section id="inspiration" class="tab-section">
+        <div class="section-header">
+            <span class="section-tag">VALUES & MOTIVATION</span>
+            <h2>My Inspiration</h2>
+            <p class="section-subtitle">The driving foundation behind my work ethic and artistic commitment</p>
+        </div>
+
+        <div class="inspiration-grid-wrapper">
+            <div class="inspiration-photo-frame">
+                <img src="inspiration.jpg" alt="Jazzmine Via with Her Mom">
+                <span class="photo-caption">my mom</span>
+            </div>
+
+            <div class="inspiration-container">
+                <div class="inspiration-card">
+                    <h3>Lessons From Home</h3>
+                    <p>Growing up as the middle child of three, my strongest inspiration has always been my mother. Observing her resilience and independence taught me the true value of resourcefulness, adaptation, and unwavering dedication before I ever began my formal design journey.</p>
+                </div>
+                <div class="inspiration-card">
+                    <h3>Purpose & Execution</h3>
+                    <p>Her ability to navigate complex challenges drives my focus as an artist. Every late-night editing session, design detail, and technical skill I master is rooted in that standard of perseverance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="tab-section">
+        <div class="contact-wrapper">
+            <div class="contact-details-box">
+                <span class="section-tag">AVAILABILITY & COLLABORATION</span>
+                <h2>Hire Me for Your Next Project.</h2>
+                <p>
+                    I am available for freelance design, editorial production, video editing, and visual storytelling projects. Send me a message below or connect via email to discuss opportunities.
+                </p>
+                
+                <div class="contact-info-list">
+                    <div class="info-item">
+                        <span class="info-label">EMAIL</span>
+                        <span class="info-value">jazzminemendoza80@email.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">PHONE</span>
+                        <span class="info-value">0950-914-3780</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">LOCATION</span>
+                        <span class="info-value">Baguio City, Philippines</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-box">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="e.g. Jane Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="jane@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details / Message</label>
+                        <textarea id="message" rows="3" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Hire Me / Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Link to external JS -->
+    <script src="script.js?v=4"></script>
+</body>
+</html>
