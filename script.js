@@ -1,12 +1,9 @@
 const sections = ['home', 'about', 'education', 'inspiration'];
 
-// Service Worker Registration for PWA support (relative path fix for GitHub Pages)
+// Remove any old service workers/caches left from earlier versions
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('Service Worker Registered!'))
-            .catch(err => console.log('Service Worker Registration Failed:', err));
-    });
+    navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+    if (window.caches) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
 }
 
 function updateArrowVisibility(targetId) {
