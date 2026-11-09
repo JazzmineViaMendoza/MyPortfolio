@@ -111,3 +111,52 @@ function handleSwipe() {
 
 // Initialize state on load
 updateArrowVisibility('home');
+
+// --- Dual Carousel Controller (Combined Slides) ---
+function initCarousel(carouselId) {
+    const container = document.getElementById(carouselId);
+    if (!container) return;
+
+    const steps = container.querySelectorAll('.achievement-step');
+    const dots = container.querySelectorAll('.dot');
+    const prevBtn = container.querySelector('.prev-carousel');
+    const nextBtn = container.querySelector('.next-carousel');
+    const indicator = container.querySelector('.step-indicator');
+    
+    let currentIndex = 0;
+
+    function updateSlide(index) {
+        steps.forEach((step, i) => {
+            step.classList.toggle('active-step', i === index);
+            if (dots[i]) dots[i].classList.toggle('active-dot', i === index);
+        });
+        if (indicator) {
+            indicator.textContent = `${index + 1} / ${steps.length}`;
+        }
+        currentIndex = index;
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            let nextIndex = (currentIndex + 1) % steps.length;
+            updateSlide(nextIndex);
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            let prevIndex = (currentIndex - 1 + steps.length) % steps.length;
+            updateSlide(prevIndex);
+        });
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => updateSlide(i));
+    });
+}
+
+// Initialize both side-by-side carousels on load
+document.addEventListener('DOMContentLoaded', () => {
+    initCarousel('academicsCarousel');
+    initCarousel('extracurricularCarousel');
+});

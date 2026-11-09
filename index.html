@@ -13,13 +13,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="android-chrome-192x192.png">
-
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     
-    <!-- Link to external CSS with cache-buster parameter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=6">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
@@ -31,9 +28,10 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active" data-target="home">HOME</a></li>
-                <li><a href="#about" class="nav-link" data-target="about">ABOUT</a></li>
-                <li><a href="#education" class="nav-link" data-target="education">EDUCATION</a></li>
+                <li><a href="#about" class="nav-link" data-target="about">PERSONAL INFORMATION</a></li>
+                <li><a href="#education" class="nav-link" data-target="education">ACHIEVEMENTS</a></li>
                 <li><a href="#inspiration" class="nav-link" data-target="inspiration">INSPIRATION</a></li>
+                <li><a href="#contact" class="nav-link contact-nav-trigger" data-target="contact" style="display: none;">CONTACT</a></li>
             </ul>
             <a href="#contact" class="nav-hire-btn nav-link" data-target="contact">Hire Me</a>
         </nav>
@@ -47,16 +45,13 @@
     <section id="home" class="tab-section active-tab">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Hi, I'm <span class="accent">JAZZMINE VIA</span></h1>
-                <h2 class="hero-role">I'm a Creator</h2>
+                <h1>Hi, I'm <span class="highlight-pink">JAZZMINE VIA</span></h1>
+                <h2>I'm a Creator</h2>
                 <p class="hero-desc">
                     A passionate Multimedia Arts student specializing in digital art, visual storytelling, and creating unique, high-performance web experiences.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="outline-button nav-link" data-target="contact">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                        Hire Me
-                    </a>
+                    <a href="#contact" class="primary-button nav-link" data-target="contact"><span class="btn-arrow">&gt;</span> Hire Me</a>
                     <a href="#about" class="secondary-button nav-link" data-target="about">Explore Portfolio</a>
                 </div>
             </div>
@@ -68,15 +63,14 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- PERSONAL INFORMATION SECTION -->
     <section id="about" class="tab-section">
         <div class="section-header">
             <span class="section-tag">GET TO KNOW ME</span>
-            <h2>About Me</h2>
+            <h2>Personal Information</h2>
         </div>
 
         <div class="about-main-layout">
-            <!-- Left Column: Photo Frame + Personal Info Box -->
             <div class="about-left-col">
                 <div class="about-photo-wrapper">
                     <div class="about-circle-frame">
@@ -86,34 +80,28 @@
 
                 <div class="about-card left-info-card">
                     <ul class="specs-list">
-                        <li><strong>Full Name:</strong> Mendoza, Jazzmine Via C.</li>
-                        <li><strong>Birthday:</strong> January 08, 2006</li>
-                        <li><strong>Course:</strong> BMMA - University of the Cordilleras</li>
-                        <li><strong>Phone:</strong> 0950-914-3780</li>
-                        <li><strong>Interest:</strong> Digital Art, Manual Illustration, Sketching</li>
+                        <li><strong>Full Name:</strong> Jazzmine Via Chavenia Mendoza</li>
+                        <li><strong>Birthdate:</strong> January 08, 2006</li>
+                        <li><strong>Civil Status:</strong> Single</li>
+                        <li><strong>Citizenship:</strong> Filipino</li>
+                        <li><strong>Height:</strong> 149.86 cm</li>
+                        <li><strong>Weight:</strong> 47 kg</li>
+                        <li><strong>Religion:</strong> Roman Catholic</li>
+                        <li><strong>Language Spoken:</strong> English, Tagalog</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Right Column: Personal Profile Bio + Skills Table -->
             <div class="about-right-col">
-                <!-- Personal Profile Narrative Card -->
                 <div class="about-card profile-bio-card">
                     <h3>Personal Profile</h3>
                     <div class="bio-text">
-                        <p>
-                            I'm a 1st Year Multimedia Arts student at the University of the Cordilleras in Baguio City.
-                        </p>
-                        <p>
-                            I'm currently developing my skills in digital design, visual arts, and multimedia production, with a strong interest in graphic design, creative content, and digital media. I have practical skills in Canva, digital illustration, visual creativity, and creative design, and I'm continuously exploring new tools and techniques to improve my work.
-                        </p>
-                        <p>
-                            I'm looking for opportunities where I can apply my creativity, gain hands-on experience, collaborate with others, and grow as a multimedia artist and creative professional.
-                        </p>
+                        <p>I'm a 1st Year Multimedia Arts student at the University of the Cordilleras in Baguio City.</p>
+                        <p>I'm currently developing my skills in digital design, visual arts, and multimedia production, with a strong interest in graphic design, creative content, and digital media. I have practical skills in Canva, digital illustration, visual creativity, and creative design, and I'm continuously exploring new tools and techniques to improve my work.</p>
+                        <p>I'm looking for opportunities where I can apply my creativity, gain hands-on experience, collaborate with others, and grow as a multimedia artist and creative professional.</p>
                     </div>
                 </div>
 
-                <!-- Skills Split Table Card -->
                 <div class="about-card skills-main-box">
                     <h3 class="skills-main-title">Skills</h3>
                     <div class="skills-internal-split">
@@ -129,9 +117,7 @@
                                 <li>UI/UX Layout</li>
                             </ul>
                         </div>
-
                         <div class="vertical-skills-divider"></div>
-
                         <div class="sub-skill-col">
                             <h4 class="sub-skill-heading">Strengths</h4>
                             <div class="card-pink-divider"></div>
@@ -148,75 +134,131 @@
         </div>
     </section>
 
-    <!-- EDUCATION SECTION -->
+    <!-- ACHIEVEMENTS SECTION -->
     <section id="education" class="tab-section">
         <div class="section-header">
-            <span class="section-tag">ACADEMIC JOURNEY & HONORS</span>
-            <h2>Education & Distinctions</h2>
+            <span class="section-tag">MILESTONES & DISTINCTIONS</span>
+            <h2>My Achievements</h2>
         </div>
 
-        <div class="single-screen-education-grid">
-            <div class="timeline-column">
-                <h3 class="sub-col-title">Academic Pathway</h3>
-                <div class="compact-timeline">
-                    <div class="compact-item">
-                        <span class="year">2026 – PRESENT</span>
-                        <h4>University of the Cordilleras</h4>
-                        <p>Bachelor of Science in Multimedia Arts (BMMA)</p>
+        <div class="dual-carousel-container">
+            
+            <!-- LEFT CAROUSEL: ACADEMICS -->
+            <div class="carousel-column">
+                <h3 class="column-heading">Academics</h3>
+                <div class="achievement-card-box" id="academicsCarousel">
+                    
+                    <!-- Slide 1 -->
+                    <div class="achievement-step active-step" data-index="0">
+                        <div>
+                            <span class="section-tag">2012 – 2022 • JUNIOR HIGH</span>
+                            <h4>Basic Education Excellence</h4>
+                            <p>Built a solid academic foundation through junior high school and elementary education with honor recognition.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="JUNIOR.jpg" alt="Academic Photo 1">
+                            <span class="photo-caption-text">Junior High & Elementary Foundation</span>
+                        </div>
                     </div>
-                    <div class="compact-item">
-                        <span class="year">2022 – 2024</span>
-                        <h4>Our Lady of the Sacred Heart College</h4>
-                        <p>Senior High School • STEM Strand</p>
+
+                    <!-- Slide 2 -->
+                    <div class="achievement-step" data-index="1">
+                        <div>
+                            <span class="section-tag">2022 – 2024 • SENIOR HIGH</span>
+                            <h4>STEM Strand & Honors</h4>
+                            <p>Completed Senior High School under the STEM strand at Our Lady of the Sacred Heart College with academic excellence and honors.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="With Honors.jpg" alt="Academic Photo 2">
+                            <span class="photo-caption-text">Senior High Honors (Grade 12)</span>
+                        </div>
                     </div>
-                    <div class="compact-item">
-                        <span class="year">2018 – 2022</span>
-                        <h4>Sto. Domingo National Trade School</h4>
-                        <p>Junior High School</p>
+
+                    <!-- Slide 3 -->
+                    <div class="achievement-step" data-index="2">
+                        <div>
+                            <span class="section-tag">2024 • WORK IMMERSION</span>
+                            <h4>Practical Application & Immersion</h4>
+                            <p>Successfully completed specialized work immersion hours, gaining hands-on professional experience as part of the academic curriculum.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="Work Immersion.jpg" alt="Academic Photo 3">
+                            <span class="photo-caption-text">Work Immersion Completion</span>
+                        </div>
                     </div>
-                    <div class="compact-item">
-                        <span class="year">2012 – 2018</span>
-                        <h4>Triala Elementary School</h4>
-                        <p>Elementary Education • Academic Excellence</p>
+
+                    <!-- Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-carousel" aria-label="Previous">&#10094;</button>
+                        <div class="carousel-dots">
+                            <span class="dot active-dot" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                        <button class="carousel-btn next-carousel" aria-label="Next">&#10095;</button>
+                        <span class="step-indicator">1 / 3</span>
                     </div>
                 </div>
             </div>
 
-            <div class="awards-column">
-                <h3 class="sub-col-title">Key Distinctions</h3>
-                <div class="compact-awards-grid">
-                    <div class="compact-award-card">
-                        <span class="award-badge">ACADEMICS</span>
-                        <h4>With Honors (2012–2024)</h4>
-                        <p>Consistent academic excellence across elementary & high school.</p>
+            <!-- RIGHT CAROUSEL: EXTRACURRICULAR -->
+            <div class="carousel-column">
+                <h3 class="column-heading">Extracurricular Activities</h3>
+                <div class="achievement-card-box" id="extracurricularCarousel">
+                    
+                    <!-- Slide 1 -->
+                    <div class="achievement-step active-step" data-index="0">
+                        <div>
+                            <span class="section-tag">2023 – 2024 • BROADCASTING</span>
+                            <h4>TV Broadcasting Technical Award</h4>
+                            <p>Achieved 1st Place leading technical production.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="Technical.jpg" alt="Extracurricular Photo 1">
+                            <span class="photo-caption-text">DSPC Best Technical</span>
+                        </div>
                     </div>
-                    <div class="compact-award-card">
-                        <span class="award-badge">BROADCASTING</span>
-                        <h4>TV Broadcasting Champion</h4>
-                        <p>DSPC 1st Place Champion (2023 & 2024).</p>
+
+                    <!-- Slide 2 -->
+                    <div class="achievement-step" data-index="1">
+                        <div>
+                            <span class="section-tag">REGIONAL COMPETITIONS</span>
+                            <h4>RSPC Media Excellence</h4>
+                            <p>Secured 2nd place distinctions at the Division Schools Press Conference (DSPC) for TV News Broadcast.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="DSPC 2nd.jpg" alt="Extracurricular Photo 2">
+                            <span class="photo-caption-text">DSPC Regional Awards</span>
+                        </div>
                     </div>
-                    <div class="compact-award-card">
-                        <span class="award-badge">REGIONAL</span>
-                        <h4>RSPC 2nd & 3rd Place</h4>
-                        <p>Regional TV News Broadcast Production excellence.</p>
+
+                    <!-- Slide 3 -->
+                    <div class="achievement-step" data-index="2">
+                        <div>
+                            <span class="section-tag">2023 • VIDEO EDITING</span>
+                            <h4>STEMazing Editing Champion</h4>
+                            <p>Won 1st Place Science Video Editing Champion honors, showcasing advanced technical editing capabilities.</p>
+                        </div>
+                        <div class="achievement-photo-display">
+                            <img src="STEMAZING.jpg" alt="Extracurricular Photo 3">
+                            <span class="photo-caption-text">STEMazing Editing Competition</span>
+                        </div>
                     </div>
-                    <div class="compact-award-card">
-                        <span class="award-badge">TECHNICAL</span>
-                        <h4>Best Technical Award</h4>
-                        <p>1st Place Technical mastery in DSPC & RSPC.</p>
-                    </div>
-                    <div class="compact-award-card">
-                        <span class="award-badge">EDITING</span>
-                        <h4>STEMazing Editing Champion</h4>
-                        <p>1st Place Science Video Editing Champion (2023).</p>
-                    </div>
-                    <div class="compact-award-card">
-                        <span class="award-badge">JOURNALISM</span>
-                        <h4>Feature & Editorial Champion</h4>
-                        <p>Excellence in journalistic storytelling & writing.</p>
+
+                    <!-- Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-carousel" aria-label="Previous">&#10094;</button>
+                        <div class="carousel-dots">
+                            <span class="dot active-dot" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                        <button class="carousel-btn next-carousel" aria-label="Next">&#10095;</button>
+                        <span class="step-indicator">1 / 3</span>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -294,6 +336,6 @@
     </section>
 
     <!-- Link to external JS -->
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=8"></script>
 </body>
 </html>
