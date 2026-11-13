@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=14">
 </head>
 
 <body>
@@ -30,10 +30,9 @@
                 <li><a href="#home" class="nav-link active" data-target="home">HOME</a></li>
                 <li><a href="#about" class="nav-link" data-target="about">PERSONAL INFORMATION</a></li>
                 <li><a href="#education" class="nav-link" data-target="education">ACHIEVEMENTS</a></li>
-                <li><a href="#inspiration" class="nav-link" data-target="inspiration">INSPIRATION</a></li>
+                <li><a href="#inspiration" class="nav-link" data-target="inspiration">FAMILY &amp; FRIENDS</a></li>
                 <li><a href="#contact" class="nav-link contact-nav-trigger" data-target="contact" style="display: none;">CONTACT</a></li>
             </ul>
-            <a href="#contact" class="nav-hire-btn nav-link" data-target="contact">Hire Me</a>
         </nav>
     </header>
 
@@ -138,124 +137,104 @@
     <section id="education" class="tab-section">
         <div class="section-header">
             <span class="section-tag">MILESTONES & DISTINCTIONS</span>
-            <h2>My Achievements</h2>
+            <h2>My <span class="highlight-pink">Achievements</span></h2>
+            
+            <!-- 3 Filter Tabs -->
+            <div class="achievement-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="academic">Academic</button>
+                <button class="filter-btn" data-filter="extracurricular">Extracurricular</button>
+            </div>
         </div>
 
-        <div class="dual-carousel-container">
+        <!-- Grid Container -->
+        <div class="achievements-grid" id="achievementsGrid">
             
-            <!-- LEFT CAROUSEL: ACADEMICS -->
-            <div class="carousel-column">
-                <h3 class="column-heading">Academics</h3>
-                <div class="achievement-card-box" id="academicsCarousel">
-                    
-                    <!-- Slide 1 -->
-                    <div class="achievement-step active-step" data-index="0">
-                        <div>
-                            <span class="section-tag">2012 – 2022 • JUNIOR HIGH</span>
-                            <h4>Basic Education Excellence</h4>
-                            <p>Built a solid academic foundation through junior high school and elementary education with honor recognition.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="JUNIOR.jpg" alt="Academic Photo 1">
-                            <span class="photo-caption-text">Junior High & Elementary Foundation</span>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="achievement-step" data-index="1">
-                        <div>
-                            <span class="section-tag">2022 – 2024 • SENIOR HIGH</span>
-                            <h4>STEM Strand & Honors</h4>
-                            <p>Completed Senior High School under the STEM strand at Our Lady of the Sacred Heart College with academic excellence and honors.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="With Honors.jpg" alt="Academic Photo 2">
-                            <span class="photo-caption-text">Senior High Honors (Grade 12)</span>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="achievement-step" data-index="2">
-                        <div>
-                            <span class="section-tag">2024 • WORK IMMERSION</span>
-                            <h4>Practical Application & Immersion</h4>
-                            <p>Successfully completed specialized work immersion hours, gaining hands-on professional experience as part of the academic curriculum.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="Work Immersion.jpg" alt="Academic Photo 3">
-                            <span class="photo-caption-text">Work Immersion Completion</span>
-                        </div>
-                    </div>
-
-                    <!-- Controls -->
-                    <div class="carousel-controls">
-                        <button class="carousel-btn prev-carousel" aria-label="Previous">&#10094;</button>
-                        <div class="carousel-dots">
-                            <span class="dot active-dot" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
-                        </div>
-                        <button class="carousel-btn next-carousel" aria-label="Next">&#10095;</button>
-                        <span class="step-indicator">1 / 3</span>
-                    </div>
+            <!-- Academic 1 -->
+            <div class="cert-card" data-category="academic">
+                <div class="cert-img-wrapper">
+                    <img src="Katunayan.jpg" alt="Junior High School Katunayan" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>Katunayan (JHS Certificate)</h4>
+                    <p>Sto. Domingo National Trade School • July 2022</p>
                 </div>
             </div>
 
-            <!-- RIGHT CAROUSEL: EXTRACURRICULAR -->
-            <div class="carousel-column">
-                <h3 class="column-heading">Extracurricular Activities</h3>
-                <div class="achievement-card-box" id="extracurricularCarousel">
-                    
-                    <!-- Slide 1 -->
-                    <div class="achievement-step active-step" data-index="0">
-                        <div>
-                            <span class="section-tag">2023 – 2024 • BROADCASTING</span>
-                            <h4>TV Broadcasting Technical Award</h4>
-                            <p>Achieved 1st Place leading technical production.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="Technical.jpg" alt="Extracurricular Photo 1">
-                            <span class="photo-caption-text">DSPC Best Technical</span>
-                        </div>
-                    </div>
+            <!-- Academic 2 -->
+            <div class="cert-card" data-category="academic">
+                <div class="cert-img-wrapper">
+                    <img src="GR10 Honors.jpg" alt="Grade 10 Honors" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>Academic Excellence – With Honors</h4>
+                    <p>Grade 10 • SY 2021–2022</p>
+                </div>
+            </div>
 
-                    <!-- Slide 2 -->
-                    <div class="achievement-step" data-index="1">
-                        <div>
-                            <span class="section-tag">REGIONAL COMPETITIONS</span>
-                            <h4>RSPC Media Excellence</h4>
-                            <p>Secured 2nd place distinctions at the Division Schools Press Conference (SPC) for TV News Broadcast.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="DSPC 2nd.jpg" alt="Extracurricular Photo 2">
-                            <span class="photo-caption-text">DSPC Regional Awards</span>
-                        </div>
-                    </div>
+            <!-- Academic 3 -->
+            <div class="cert-card" data-category="academic">
+                <div class="cert-img-wrapper">
+                    <img src="GR11 Honors.jpg" alt="Grade 11 Honors" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>Certificate of Achievement – With Honors</h4>
+                    <p>Grade 11 STEM • SY 2022–2023</p>
+                </div>
+            </div>
 
-                    <!-- Slide 3 -->
-                    <div class="achievement-step" data-index="2">
-                        <div>
-                            <span class="section-tag">2023 • VIDEO EDITING</span>
-                            <h4>STEMazing Editing Champion</h4>
-                            <p>Won 1st Place Science Video Editing Champion honors, showcasing advanced technical editing capabilities.</p>
-                        </div>
-                        <div class="achievement-photo-display">
-                            <img src="STEMAZING.jpg" alt="Extracurricular Photo 3">
-                            <span class="photo-caption-text">STEMazing Editing Competition</span>
-                        </div>
-                    </div>
+            <!-- Academic 4 -->
+            <div class="cert-card" data-category="academic">
+                <div class="cert-img-wrapper">
+                    <img src="With Honors.jpg" alt="Grade 12 Academic Excellence" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>Academic Excellence Awardee</h4>
+                    <p>Grade 12 STEM • SY 2023–2024</p>
+                </div>
+            </div>
 
-                    <!-- Controls -->
-                    <div class="carousel-controls">
-                        <button class="carousel-btn prev-carousel" aria-label="Previous">&#10094;</button>
-                        <div class="carousel-dots">
-                            <span class="dot active-dot" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
-                        </div>
-                        <button class="carousel-btn next-carousel" aria-label="Next">&#10095;</button>
-                        <span class="step-indicator">1 / 3</span>
-                    </div>
+            <!-- Academic 5 -->
+            <div class="cert-card" data-category="academic">
+                <div class="cert-img-wrapper">
+                    <img src="Work Immersion.jpg" alt="Work Immersion Completion" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>80-Hour Work Immersion Completion</h4>
+                    <p>OLSHCO • March 2024</p>
+                </div>
+            </div>
+
+            <!-- Extracurricular 1 -->
+            <div class="cert-card" data-category="extracurricular">
+                <div class="cert-img-wrapper">
+                    <img src="Technical.png" alt="Best Technical Award" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>1st Place – Best Technical Award</h4>
+                    <p>Technical Mastery in DSPC • March 2024</p>
+                </div>
+            </div>
+
+            <!-- Extracurricular 2 -->
+            <div class="cert-card" data-category="extracurricular">
+                <div class="cert-img-wrapper">
+                    <img src="DSPC 2nd.jpg" alt="DSPC 2nd Place" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>DSPC 2nd Place – TV News Broadcast</h4>
+                    <p>Production Excellence • March 2024</p>
+                </div>
+            </div>
+
+            <!-- Extracurricular 3 -->
+            <div class="cert-card" data-category="extracurricular">
+                <div class="cert-img-wrapper">
+                    <img src="STEMAZING.png" alt="STEMazing Editing Champion" decoding="async">
+                </div>
+                <div class="cert-info">
+                    <h4>1st Place – Science Video Editing Champion</h4>
+                    <p>STEMazing Competition • September 2023</p>
                 </div>
             </div>
 
@@ -336,6 +315,6 @@
     </section>
 
     <!-- Link to external JS -->
-    <script src="script.js?v=8"></script>
+    <script src="script.js?v=14"></script>
 </body>
 </html>

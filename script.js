@@ -1,6 +1,5 @@
 const sections = ['home', 'about', 'education', 'inspiration'];
 
-// Remove any old service workers/caches left from earlier versions
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
     if (window.caches) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
@@ -10,14 +9,12 @@ function updateArrowVisibility(targetId) {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    // Hide left arrow on Home (first tab), show on others
     if (targetId === 'home') {
         prevBtn.style.display = 'none';
     } else {
         prevBtn.style.display = 'flex';
     }
 
-    // Hide right arrow on Contact (last tab), show on others
     if (targetId === 'contact') {
         nextBtn.style.display = 'none';
     } else {
@@ -41,7 +38,6 @@ function switchTab(targetId) {
     updateArrowVisibility(targetId);
 }
 
-// Navbar Link Click Handlers
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -50,113 +46,83 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Next Arrow Logic
-document.getElementById('nextBtn').addEventListener('click', () => {
+function step(direction) {
     const activeSec = document.querySelector('.tab-section.active-tab');
-    const currentIndex = sections.indexOf(activeSec.id);
-    if (currentIndex < sections.length - 1) {
-        switchTab(sections[currentIndex + 1]);
-    }
-});
+    if (!activeSec) return;
 
-// Previous Arrow Logic
-document.getElementById('prevBtn').addEventListener('click', () => {
-    const activeSec = document.querySelector('.tab-section.active-tab');
-    const currentIndex = sections.indexOf(activeSec.id);
-    if (currentIndex > 0) {
-        switchTab(sections[currentIndex - 1]);
+    if (activeSec.id === 'contact') {
+        if (direction < 0) switchTab('home');
+        return;
     }
-});
 
-// Keyboard Arrow Key Support
+    const nextIndex = sections.indexOf(activeSec.id) + direction;
+    if (nextIndex >= 0 && nextIndex < sections.length) {
+        switchTab(sections[nextIndex]);
+    }
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => step(1));
+document.getElementById('prevBtn').addEventListener('click', () => step(-1));
+
 document.addEventListener('keydown', (e) => {
-    const activeSec = document.querySelector('.tab-section.active-tab');
-    const currentIndex = sections.indexOf(activeSec.id);
-    if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
-        switchTab(sections[currentIndex + 1]);
-    } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        switchTab(sections[currentIndex - 1]);
-    }
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
 });
 
-// Touch Swipe Support for Smartphones
 let touchStartX = 0;
-let touchEndX = 0;
+let touchStartY = 0;
 
 document.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
-});
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
 
 document.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-});
-
-function handleSwipe() {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
     const swipeThreshold = 50;
-    const activeSec = document.querySelector('.tab-section.active-tab');
-    const currentIndex = sections.indexOf(activeSec.id);
 
-    if (touchEndX < touchStartX - swipeThreshold) {
-        if (currentIndex < sections.length - 1) {
-            switchTab(sections[currentIndex + 1]);
-        }
+    if (Math.abs(dx) > swipeThreshold && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        step(dx < 0 ? 1 : -1);
     }
-    if (touchEndX > touchStartX + swipeThreshold) {
-        if (currentIndex > 0) {
-            switchTab(sections[currentIndex - 1]);
-        }
-    }
-}
+}, { passive: true });
 
-// Initialize state on load
 updateArrowVisibility('home');
 
-// --- Dual Carousel Controller (Combined Slides) ---
-function initCarousel(carouselId) {
-    const container = document.getElementById(carouselId);
-    if (!container) return;
-
-    const steps = container.querySelectorAll('.achievement-step');
-    const dots = container.querySelectorAll('.dot');
-    const prevBtn = container.querySelector('.prev-carousel');
-    const nextBtn = container.querySelector('.next-carousel');
-    const indicator = container.querySelector('.step-indicator');
-    
-    let currentIndex = 0;
-
-    function updateSlide(index) {
-        steps.forEach((step, i) => {
-            step.classList.toggle('active-step', i === index);
-            if (dots[i]) dots[i].classList.toggle('active-dot', i === index);
-        });
-        if (indicator) {
-            indicator.textContent = `${index + 1} / ${steps.length}`;
-        }
-        currentIndex = index;
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            let nextIndex = (currentIndex + 1) % steps.length;
-            updateSlide(nextIndex);
-        });
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            let prevIndex = (currentIndex - 1 + steps.length) % steps.length;
-            updateSlide(prevIndex);
-        });
-    }
-
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => updateSlide(i));
-    });
-}
-
-// Initialize both side-by-side carousels on load
+// --- Achievements Filter Controller ---
 document.addEventListener('DOMContentLoaded', () => {
-    initCarousel('academicsCarousel');
-    initCarousel('extracurricularCarousel');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const grid = document.getElementById('achievementsGrid');
+    const certCards = Array.from(document.querySelectorAll('.cert-card'));
+
+    if (!certCards.length) return;
+
+    function renderAchievements(filter) {
+        if (grid) {
+            grid.classList.toggle('academic-layout', filter === 'academic');
+            grid.classList.toggle('extra-layout', filter === 'extracurricular');
+        }
+
+        certCards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const currentFilter = btn.getAttribute('data-filter');
+            renderAchievements(currentFilter);
+        });
+    });
+
+    renderAchievements('all');
 });
