@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css?v=14">
+    <link rel="stylesheet" href="style.css?v=16">
 </head>
 
 <body>
@@ -314,7 +314,19 @@
         </div>
     </section>
 
+    <!-- CERTIFICATE LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Certificate preview">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+        <figure class="lightbox-figure">
+            <img id="lightboxImg" src="" alt="">
+            <figcaption>
+                <h4 id="lightboxTitle"></h4>
+                <p id="lightboxMeta"></p>
+            </figcaption>
+        </figure>
+    </div>
+
     <!-- Link to external JS -->
-    <script src="script.js?v=14"></script>
+    <script src="script.js?v=16"></script>
 </body>
 </html>

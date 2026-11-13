@@ -46,7 +46,13 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
+function isLightboxOpen() {
+    const lb = document.getElementById('lightbox');
+    return !!lb && lb.classList.contains('open');
+}
+
 function step(direction) {
+    if (isLightboxOpen()) return;
     const activeSec = document.querySelector('.tab-section.active-tab');
     if (!activeSec) return;
 
@@ -125,4 +131,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderAchievements('all');
+});
+
+// --- Certificate Lightbox (click / tap / Enter to zoom) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('achievementsGrid');
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbMeta = document.getElementById('lightboxMeta');
+    const lbClose = document.getElementById('lightboxClose');
+    if (!grid || !lightbox) return;
+
+    let lastFocus = null;
+
+    document.querySelectorAll('.cert-card').forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+    });
+
+    function openLightbox(card) {
+        const img = card.querySelector('img');
+        if (!img) return;
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lbTitle.textContent = card.querySelector('h4')?.textContent || '';
+        lbMeta.textContent = card.querySelector('p')?.textContent || '';
+        lastFocus = document.activeElement;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        lbClose.focus({ preventScroll: true });
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+
+    grid.addEventListener('click', e => {
+        const card = e.target.closest('.cert-card');
+        if (card) openLightbox(card);
+    });
+
+    grid.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const card = e.target.closest('.cert-card');
+        if (!card) return;
+        e.preventDefault();
+        openLightbox(card);
+    });
+
+    // Click on the dark backdrop (not the picture) or the X closes it.
+    lightbox.addEventListener('click', e => {
+        if (e.target === lightbox || e.target === lbClose || e.target.closest('.lightbox-figure') === null) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && isLightboxOpen()) closeLightbox();
+    });
 });

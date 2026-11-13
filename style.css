@@ -1035,3 +1035,143 @@ body:has(#inspiration.active-tab) .next-arrow {
         height: clamp(220px, 70vw, 320px);
     }
 }
+
+/* ==========================================================================
+   ACHIEVEMENTS: FIT-TO-SCREEN (no scrolling) + CLICK-TO-ZOOM LIGHTBOX
+   The grid fills whatever height is left under the header, so the cards
+   (and certificate previews) scale smoothly from laptop to large monitor.
+   ========================================================================== */
+.cert-card { cursor: pointer; }
+.cert-card:focus-visible { outline: 2px solid var(--neon-pink); outline-offset: 3px; }
+
+@media (min-width: 701px) and (min-height: 520px) {
+    #education { overflow-y: hidden; }
+
+    #education .section-header { margin-bottom: clamp(8px, calc(var(--u) * 1.4), 16px); }
+    #education .achievement-filters { margin-bottom: 0; }
+
+    #education .achievements-grid {
+        flex: 1 1 0;
+        min-height: 0;
+        padding-bottom: 0;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        align-content: stretch;
+    }
+
+    /* Keep four columns for "All" all the way down to tablet width. */
+    #education .achievements-grid:not(.academic-layout):not(.extra-layout) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    /* Extracurricular: one row, capped height, centered vertically. */
+    #education .achievements-grid.extra-layout {
+        grid-template-rows: minmax(0, 1fr);
+        flex: 0 1 clamp(320px, calc(var(--u) * 68), 760px);
+        margin-block: auto;
+    }
+
+    #education .cert-card {
+        min-height: 0;
+        padding: clamp(8px, calc(var(--u) * 1.2), 14px);
+    }
+
+    /* The certificate preview takes all the space the card has left. */
+    #education .achievements-grid .cert-img-wrapper {
+        flex: 1 1 0;
+        height: auto;
+        min-height: 0;
+    }
+
+    #education .cert-info {
+        flex-shrink: 0;
+        margin-top: clamp(6px, calc(var(--u) * 1), 12px);
+    }
+
+    #education .cert-info h4 { font-size: clamp(0.78rem, calc(var(--u) * 1.9), 1.1rem); }
+    #education .cert-info p  { font-size: clamp(0.7rem, calc(var(--u) * 1.6), 0.95rem); }
+}
+
+/* --- Lightbox --- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(14px, 3vw, 48px);
+    background: rgba(5, 8, 15, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    cursor: zoom-out;
+}
+
+.lightbox.open { opacity: 1; visibility: visible; }
+
+.lightbox-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    max-width: 100%;
+    transform: scale(0.88);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: default;
+}
+
+.lightbox.open .lightbox-figure { transform: scale(1); }
+
+.lightbox-figure img {
+    max-width: min(94vw, 1500px);
+    max-height: calc(100dvh - 170px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background: #FFFFFF;
+    padding: 6px;
+    border-radius: 12px;
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 55px var(--neon-pink-glow), 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-figure figcaption { text-align: center; }
+
+.lightbox-figure h4 {
+    color: var(--text-primary);
+    font-size: clamp(0.95rem, 1.5vw, 1.35rem);
+    font-weight: 800;
+}
+
+.lightbox-figure p {
+    color: var(--text-muted);
+    font-size: clamp(0.8rem, 1.1vw, 1rem);
+    margin-top: 2px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: clamp(10px, 2vw, 28px);
+    right: clamp(10px, 2vw, 28px);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--border-dark);
+    background: rgba(18, 23, 34, 0.9);
+    color: var(--text-primary);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 22px var(--neon-pink-glow);
+    outline: none;
+}
