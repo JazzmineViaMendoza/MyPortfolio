@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lbImg.src = img.currentSrc || img.src;
         lbImg.alt = img.alt;
         lbTitle.textContent = card.querySelector('h4')?.textContent || '';
-        lbMeta.textContent = card.querySelector('p')?.textContent || '';
+        lbMeta.textContent = [card.querySelector('.cert-school')?.textContent, card.querySelector('p')?.textContent].filter(Boolean).join(' • ');
         lastFocus = document.activeElement;
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', 'false');

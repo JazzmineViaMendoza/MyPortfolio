@@ -1175,3 +1175,71 @@ body:has(#inspiration.active-tab) .next-arrow {
     box-shadow: 0 0 22px var(--neon-pink-glow);
     outline: none;
 }
+/* ==========================================================================
+   ACHIEVEMENTS: 6 academic cards (Elementary -> Senior High) + 9 total
+   Academic: clean 3 x 2 grid. All: 5 columns x 2 rows.
+   ========================================================================== */
+.achievements-grid.academic-layout .cert-card:nth-child(4),
+.achievements-grid.academic-layout .cert-card:nth-child(5) {
+    grid-column: span 2;
+    justify-self: stretch;
+}
+
+.achievements-grid:not(.academic-layout):not(.extra-layout) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (min-width: 701px) and (min-height: 520px) {
+    #education .achievements-grid:not(.academic-layout):not(.extra-layout) {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .achievements-grid:not(.academic-layout):not(.extra-layout) {
+        grid-template-columns: none;
+    }
+}
+
+/* ==========================================================================
+   ACHIEVEMENTS "ALL": 5 on top, the 4 below centered (10-track grid)
+   + school name above each title, with full text visible (no ellipsis)
+   ========================================================================== */
+.achievements-grid:not(.academic-layout):not(.extra-layout),
+#education .achievements-grid:not(.academic-layout):not(.extra-layout) {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card {
+    grid-column: span 2;
+}
+.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(6) { grid-column: 2 / span 2; }
+.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(7) { grid-column: 4 / span 2; }
+.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(8) { grid-column: 6 / span 2; }
+.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(9) { grid-column: 8 / span 2; }
+
+.cert-school {
+    display: block;
+    color: var(--neon-pink);
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    margin-bottom: 3px;
+}
+
+.cert-info h4,
+.cert-info p {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 701px) and (min-height: 520px) {
+    #education .cert-school { font-size: clamp(0.64rem, calc(var(--u) * 1.45), 0.9rem); }
+}
+
+@media (max-width: 700px) {
+    .achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card { grid-column: auto; }
+}
