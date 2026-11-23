@@ -19,7 +19,7 @@
     --nav-h: clamp(46px, calc(var(--u) * 6.6), 76px);
     --nav-top: clamp(8px, calc(var(--u) * 1.6), 20px);
     --pad-x: clamp(12px, 3.5vw, 72px);
-    --top: calc(var(--nav-top) + var(--nav-h) + clamp(12px, calc(var(--u) * 2), 28px));
+    --top: calc(var(--nav-top) + var(--nav-h) + clamp(20px, calc(var(--u) * 2.6), 38px));
 
     --fs-xs: clamp(11px, calc(var(--u) * 1.55), 15px);
     --fs-sm: clamp(12px, calc(var(--u) * 1.75), 18px);
@@ -27,9 +27,9 @@
     --fs-lg: clamp(16px, calc(var(--u) * 2.7), 32px);
     --fs-h2: clamp(22px, calc(var(--u) * 4), 48px);
 
-    --gap-s: clamp(5px, calc(var(--u) * 0.8), 12px);
-    --gap-m: clamp(8px, calc(var(--u) * 1.2), 18px);
-    --gap-l: clamp(12px, calc(var(--u) * 2), 30px);
+    --gap-s: clamp(4px, calc(var(--u) * 0.65), 10px);
+    --gap-m: clamp(7px, calc(var(--u) * 1.05), 16px);
+    --gap-l: clamp(12px, calc(var(--u) * 1.8), 28px);
     --radius: clamp(12px, calc(var(--u) * 2), 26px);
 }
 
@@ -56,7 +56,7 @@ body, html {
     font-family: var(--font-body);
     background: var(--bg-main);
     color: var(--text-primary);
-    line-height: 1.45;
+    line-height: 1.4;
     height: 100vh;
     height: 100dvh;
     width: 100%;
@@ -89,11 +89,11 @@ header {
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid #28334E;
     border-radius: 60px;
-    padding: 0 clamp(16px, 2.6vw, 44px);
+    gap: clamp(18px, 3vw, 48px);
+    padding: 0 clamp(20px, 2.8vw, 48px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--gap-m);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
 }
 
@@ -103,17 +103,20 @@ header {
     letter-spacing: 0.14em;
     color: var(--text-primary);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .nav-links {
     display: flex;
-    gap: clamp(12px, 2.4vw, 46px);
+    margin-left: auto;
+    gap: clamp(16px, 2.1vw, 38px);
+    align-items: center;
     list-style: none;
 }
 
 .nav-links a {
-    font-size: clamp(10px, 1.15vw, 16px);
-    letter-spacing: 0.13em;
+    font-size: clamp(10px, 1vw, 15px);
+    letter-spacing: clamp(0.04em, 0.09vw, 0.11em);
     font-weight: 700;
     color: var(--text-secondary);
     transition: color 0.3s ease;
@@ -158,11 +161,12 @@ header {
 .prev-arrow { left: clamp(6px, 1.2vw, 24px); display: none; }
 .next-arrow { right: clamp(6px, 1.2vw, 24px); display: flex; }
 
-body:has(#inspiration.active-tab) .next-arrow {
+body:has(#inspiration.active-tab) .next-arrow,
+body:has(#contact.active-tab) .next-arrow {
     display: none !important;
 }
 
-/* --- Tab Sections Frame --- */
+/* --- Tab Sections Frame (No Scroll) --- */
 .tab-section {
     position: absolute;
     top: 0;
@@ -170,7 +174,7 @@ body:has(#inspiration.active-tab) .next-arrow {
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    padding: var(--top) calc(var(--pad-x) + clamp(0px, 2.5vw, 36px)) 12px;
+    padding: var(--top) calc(var(--pad-x) + clamp(0px, 2.5vw, 36px)) 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -178,11 +182,8 @@ body:has(#inspiration.active-tab) .next-arrow {
     visibility: hidden;
     transform: scale(0.985);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: none;
+    overflow: hidden;
 }
-.tab-section::-webkit-scrollbar { display: none; }
 
 .tab-section.active-tab {
     opacity: 1;
@@ -193,7 +194,7 @@ body:has(#inspiration.active-tab) .next-arrow {
 
 /* --- Section Headers --- */
 .section-header {
-    margin-bottom: 14px;
+    margin-bottom: clamp(6px, calc(var(--u) * 0.9), 12px);
     text-align: center;
     flex-shrink: 0;
 }
@@ -213,7 +214,7 @@ body:has(#inspiration.active-tab) .next-arrow {
     font-weight: 800;
     line-height: 1.1;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .section-subtitle {
@@ -230,6 +231,8 @@ body:has(#inspiration.active-tab) .next-arrow {
     align-items: center;
     max-width: 1600px;
     width: 100%;
+    height: 100%;
+    min-height: 0;
     margin: auto 0;
 }
 
@@ -308,24 +311,40 @@ body:has(#inspiration.active-tab) .next-arrow {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
 }
 
 .photo-circle-frame {
-    width: clamp(160px, min(calc(var(--u) * 52), 38vw), 640px);
-    aspect-ratio: 1;
-    border-radius: 50%;
+    height: min(100%, calc(100dvh - var(--top) - 24px));
+    max-width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius);
     overflow: hidden;
     border: 4px solid var(--neon-pink);
     padding: 6px;
-    background: var(--bg-card);
+    background: #FFFFFF;
     box-shadow: 0 0 45px rgba(255, 42, 133, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.photo-circle-frame img,
+.photo-circle-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #FFFFFF;
+    border-radius: calc(var(--radius) * 0.75);
+}
+
 .about-circle-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 15%;
     border-radius: 50%;
 }
 
@@ -334,11 +353,12 @@ body:has(#inspiration.active-tab) .next-arrow {
     flex: 1;
     min-height: 0;
     display: grid;
-    grid-template-columns: clamp(250px, 29vw, 460px) minmax(0, 1fr);
-    gap: var(--gap-l);
+    grid-template-columns: clamp(265px, 30vw, 470px) minmax(0, 1fr);
+    gap: var(--gap-m);
     max-width: 1600px;
     width: 100%;
-    align-items: center;
+    height: 100%;
+    align-items: stretch;
     margin: 0 auto;
 }
 
@@ -346,70 +366,109 @@ body:has(#inspiration.active-tab) .next-arrow {
 .about-right-col {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-m);
+    gap: var(--gap-s);
     min-width: 0;
+    height: 100%;
+    min-height: 0;
 }
 
 .about-photo-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .about-circle-frame {
-    width: clamp(110px, calc(var(--u) * 27), 340px);
+    width: clamp(108px, calc(var(--u) * 24), 260px);
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid var(--neon-pink);
-    padding: 6px;
+    border: 4px solid var(--neon-pink);
+    padding: 4px;
     background: var(--bg-card);
-    box-shadow: 0 0 45px rgba(255, 42, 133, 0.4);
+    box-shadow: 0 0 35px rgba(255, 42, 133, 0.4);
+}
+
+.left-info-card {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-bio-card {
+    flex: 1.15 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.skills-main-box {
+    flex: 0.95 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .left-info-card, .profile-bio-card, .skills-main-box {
     background: var(--bg-card);
     border: 1px solid var(--border-dark);
     border-radius: var(--radius);
-    padding: clamp(10px, calc(var(--u) * 1.7), 26px) clamp(14px, calc(var(--u) * 2.6), 36px);
+    padding: clamp(7px, calc(var(--u) * 1.1), 16px) clamp(12px, calc(var(--u) * 2), 28px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
 .profile-bio-card h3, .skills-main-title {
-    font-size: var(--fs-lg);
+    font-size: clamp(15px, calc(var(--u) * 2.4), 28px);
     font-weight: 800;
     color: var(--text-primary);
-    margin-bottom: var(--gap-s);
+    margin-bottom: clamp(4px, calc(var(--u) * 0.6), 8px);
     border-bottom: 2px solid var(--neon-pink);
-    padding-bottom: 4px;
+    padding-bottom: 2px;
     display: inline-block;
+    align-self: flex-start;
 }
 
 .specs-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-s);
+    justify-content: space-between;
+    height: 100%;
+    gap: 1px;
 }
 
 .specs-list li {
-    font-size: var(--fs-sm);
+    font-size: clamp(10.5px, calc(var(--u) * 1.42), 14px);
+    line-height: 1.25;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-dark);
-    padding-bottom: 4px;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.specs-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .specs-list li strong {
     color: var(--text-primary);
     font-weight: 700;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 
 .bio-text p {
-    font-size: var(--fs-md);
+    font-size: clamp(11.5px, calc(var(--u) * 1.72), 18px);
     color: var(--text-secondary);
-    line-height: 1.55;
-    margin-bottom: var(--gap-s);
+    line-height: 1.42;
+    margin-bottom: clamp(4px, calc(var(--u) * 0.6), 8px);
 }
 .bio-text p:last-child { margin-bottom: 0; }
 
@@ -422,10 +481,10 @@ body:has(#inspiration.active-tab) .next-arrow {
 .sub-skill-col { flex: 1; }
 
 .sub-skill-heading {
-    font-size: var(--fs-md);
+    font-size: clamp(13px, calc(var(--u) * 1.85), 20px);
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: var(--gap-s);
+    margin-bottom: 2px;
 }
 
 .card-pink-divider {
@@ -433,7 +492,7 @@ body:has(#inspiration.active-tab) .next-arrow {
     height: 2px;
     background: var(--neon-pink);
     box-shadow: 0 0 10px var(--neon-pink);
-    margin-bottom: var(--gap-s);
+    margin-bottom: 5px;
 }
 
 .vertical-skills-divider {
@@ -447,203 +506,232 @@ body:has(#inspiration.active-tab) .next-arrow {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-s);
+    gap: clamp(1px, calc(var(--u) * 0.32), 5px);
 }
 
 .skills-list li {
-    font-size: var(--fs-sm);
+    font-size: clamp(11px, calc(var(--u) * 1.5), 15px);
+    line-height: 1.28;
     color: var(--text-primary);
     font-weight: 600;
 }
 
-/* --- Achievements Filter & Grids --- */
-.achievement-filters {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.filter-btn {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-dark);
-    padding: 7px 22px;
-    border-radius: 8px;
-    font-family: var(--font-body);
-    font-size: var(--fs-xs);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.filter-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--text-primary);
-    border-color: rgba(255, 42, 133, 0.5);
-}
-
-.filter-btn.active {
-    background: var(--neon-pink);
-    color: #FFFFFF;
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 20px var(--neon-pink-glow);
-}
-
-/* Grid layout for All and Extracurricular */
-.achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(260px, 320px));
-    justify-content: center;
-    gap: 16px;
-    max-width: 1300px;
+/* ==========================================================================
+   ACHIEVEMENTS 3-COLUMN AUTO-TRANSITION SHOWCASE (NO SCROLL)
+   ========================================================================== */
+.schools-columns-row {
+    flex: 1 1 0;
+    min-height: 0;
     width: 100%;
+    max-width: 1620px;
     margin: 0 auto;
-    padding-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(14px, 1.8vw, 30px);
+    align-items: stretch;
+    padding-bottom: 4px;
 }
 
-/* Academic 3x2 Grid (3 top, 2 centered bottom) */
-.achievements-grid.academic-layout {
-    grid-template-columns: repeat(3, minmax(260px, 320px));
-}
-
-.achievements-grid.academic-layout .cert-card:nth-child(4) {
-    grid-column: 1 / 2;
-    justify-self: end;
-}
-
-.achievements-grid.academic-layout .cert-card:nth-child(5) {
-    grid-column: 2 / 3;
-    justify-self: start;
-}
-
-.cert-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-dark);
-    border-radius: 12px;
-    padding: 12px;
+.school-column {
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    transition: transform 0.25s ease, border-color 0.25s ease;
-    width: 100%;
-    max-width: 320px;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    gap: clamp(6px, calc(var(--u) * 0.8), 11px);
 }
 
-.cert-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--neon-pink);
-}
-
-.cert-img-wrapper {
-    background: #FFFFFF;
-    border-radius: 8px;
-    height: 180px;
-    width: 100%;
+.school-col-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding: 4px;
+    gap: 10px;
+    flex-shrink: 0;
+    min-height: clamp(36px, calc(var(--u) * 5.2), 54px);
 }
 
-.cert-img-wrapper img {
+.school-col-title {
+    font-size: clamp(0.88rem, calc(var(--u) * 2.05), 1.32rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.school-col-logo {
+    width: clamp(34px, calc(var(--u) * 5.2), 50px);
+    height: clamp(34px, calc(var(--u) * 5.2), 50px);
+    object-fit: contain;
+    border-radius: 50%;
+    background: #FFFFFF;
+    padding: 3px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.school-showcase-frame {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    border: 3px solid #FFFFFF;
+    border-radius: 4px;
+    background: #0D121D;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.showcase-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: clamp(8px, calc(var(--u) * 1.1), 14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+
+.showcase-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.showcase-slide img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    border-radius: 4px;
+    transition: transform 0.35s ease;
 }
 
-.cert-info {
-    margin-top: 10px;
-    text-align: left;
+.school-showcase-frame:hover .showcase-slide.active img {
+    transform: scale(1.04);
 }
 
-.cert-info h4 {
-    color: var(--text-primary);
-    font-size: 0.88rem;
-    font-weight: 700;
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cert-info p {
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* --- Family & Friends (Inspiration) Section --- */
-.inspiration-grid-wrapper {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--gap-l);
-    max-width: 1600px;
-    width: 100%;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.inspiration-photo-frame {
-    background: var(--bg-card);
-    border: 2px solid var(--neon-pink);
-    padding: clamp(8px, calc(var(--u) * 1.4), 16px);
-    border-radius: var(--radius);
+.school-meta-caption {
+    flex-shrink: 0;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    justify-self: center;
-    width: 100%;
-    max-width: calc(var(--u) * 75);
-}
-
-.inspiration-photo-frame img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: calc(var(--radius) * 0.7);
-}
-
-.photo-caption {
-    display: block;
-    font-size: var(--fs-xs);
-    letter-spacing: 0.18em;
-    color: var(--neon-pink);
-    margin-top: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.inspiration-container {
+    min-height: clamp(34px, calc(var(--u) * 4.8), 48px);
     display: flex;
     flex-direction: column;
-    gap: var(--gap-m);
+    justify-content: center;
+    transition: opacity 0.35s ease;
 }
 
-.inspiration-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-dark);
-    border-radius: var(--radius);
-    padding: clamp(12px, calc(var(--u) * 2.2), 32px) clamp(14px, calc(var(--u) * 2.8), 38px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+.school-meta-caption.fading {
+    opacity: 0.25;
 }
 
-.inspiration-card h3 {
-    font-size: var(--fs-lg);
+.meta-school-name {
+    font-size: clamp(0.76rem, calc(var(--u) * 1.6), 0.98rem);
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: var(--gap-s);
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.inspiration-card p {
+.meta-year-cat {
+    font-size: clamp(0.74rem, calc(var(--u) * 1.55), 0.95rem);
+    font-weight: 700;
+    color: var(--neon-pink);
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   FAMILY & FRIENDS SECTION: 3 EQUAL CARDS + ZOOM + DESCRIPTION BELOW
+   ========================================================================== */
+.ff-grid {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(14px, 2vw, 34px);
+    align-items: stretch;
+    padding-bottom: 6px;
+}
+
+.ff-card {
+    background: var(--bg-card);
+    border: 1px solid #23304A;
+    border-radius: var(--radius);
+    padding: clamp(10px, calc(var(--u) * 1.25), 18px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ff-card:hover {
+    border-color: var(--neon-pink);
+    box-shadow: 0 16px 36px rgba(255, 42, 133, 0.18);
+}
+
+.ff-card:focus-visible {
+    outline: 2px solid var(--neon-pink);
+    outline-offset: 3px;
+}
+
+.ff-img-box {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    border-radius: calc(var(--radius) * 0.65);
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.ff-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ff-card:hover .ff-img-box img {
+    transform: scale(1.07);
+}
+
+.ff-body {
+    flex-shrink: 0;
+    padding-top: clamp(8px, calc(var(--u) * 1.1), 14px);
+    text-align: center;
+}
+
+.ff-body h3 {
+    font-size: clamp(1rem, calc(var(--u) * 2.3), 1.45rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: clamp(3px, calc(var(--u) * 0.5), 6px);
+    line-height: 1.2;
+}
+
+.ff-body p {
+    font-size: clamp(0.76rem, calc(var(--u) * 1.62), 1.02rem);
     color: var(--text-secondary);
-    font-size: var(--fs-md);
-    line-height: 1.55;
+    line-height: 1.38;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* --- Contact Section --- */
@@ -754,344 +842,7 @@ body:has(#inspiration.active-tab) .next-arrow {
     box-shadow: 0 0 30px var(--neon-pink);
 }
 
-/* ==========================================================================
-   RESPONSIVE ADAPTATIONS
-   ========================================================================== */
-
-@media (max-width: 1100px) {
-    .achievements-grid,
-    .achievements-grid.academic-layout {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .achievements-grid.academic-layout .cert-card:nth-child(4),
-    .achievements-grid.academic-layout .cert-card:nth-child(5) {
-        grid-column: auto;
-        justify-self: stretch;
-    }
-}
-
-@media (min-width: 701px) and (max-aspect-ratio: 1/1) {
-    .hero-content {
-        display: flex;
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: var(--gap-l);
-    }
-    .hero-text { align-items: center; text-align: center; }
-    .hero-text h1 { font-size: clamp(36px, 8vw, 84px); }
-    .hero-desc { max-width: 30em; }
-    .photo-circle-frame { width: clamp(200px, min(38vh, 52vw), 460px); }
-    .inspiration-grid-wrapper { grid-template-columns: 1fr; align-content: center; }
-    .inspiration-photo-frame { max-width: min(80%, calc(var(--u) * 75)); }
-    .contact-wrapper { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 700px) {
-    .nav-links { display: none; }
-    .navbar { justify-content: center; }
-
-    .tab-section {
-        justify-content: flex-start;
-        padding-left: 14px;
-        padding-right: 14px;
-        padding-bottom: 24px;
-    }
-
-    .hero-content {
-        display: flex;
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: var(--gap-l);
-    }
-    .hero-text { align-items: center; text-align: center; }
-    .hero-text h1 { font-size: clamp(30px, 9.5vw, 44px); }
-    .hero-buttons { justify-content: center; }
-    .photo-circle-frame { width: clamp(170px, 58vw, 300px); }
-
-    .about-main-layout,
-    .inspiration-grid-wrapper,
-    .contact-wrapper,
-    .achievements-grid,
-    .achievements-grid.academic-layout {
-        display: flex;
-        flex-direction: column;
-        flex: none;
-        gap: var(--gap-m);
-        width: 100%;
-        align-items: center;
-    }
-    .about-circle-frame { width: clamp(140px, 46vw, 220px); }
-    .skills-internal-split { gap: var(--gap-m); }
-    .cert-img-wrapper { height: 180px; }
-    .inspiration-photo-frame { max-width: 100%; }
-}
-
-/* ==========================================================================
-   ACHIEVEMENTS GRID + NAVBAR SPACING REFINEMENTS
-   ========================================================================== */
-
-/* Give the fixed navbar and page content more breathing room. */
-:root {
-    --top: calc(var(--nav-top) + var(--nav-h) + clamp(26px, calc(var(--u) * 3.5), 46px));
-}
-
-.navbar {
-    gap: clamp(18px, 3vw, 48px);
-    padding-left: clamp(20px, 2.8vw, 48px);
-    padding-right: clamp(20px, 2.8vw, 48px);
-}
-
-.logo {
-    flex-shrink: 0;
-}
-
-.nav-links {
-    margin-left: auto;
-    gap: clamp(16px, 2.1vw, 38px);
-    align-items: center;
-}
-
-.nav-links a {
-    font-size: clamp(10px, 1vw, 15px);
-    letter-spacing: clamp(0.04em, 0.09vw, 0.11em);
-}
-
-/* ALL: four columns on wide screens. */
-.achievements-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    max-width: 1500px;
-    gap: clamp(14px, 1.2vw, 20px);
-}
-
-.cert-card {
-    max-width: none;
-    min-width: 0;
-}
-
-.cert-img-wrapper {
-    height: clamp(175px, 14vw, 225px);
-}
-
-/* ACADEMIC: three across, then two centered in the second row.
-   Six grid tracks allow the bottom pair to sit symmetrically in the middle. */
-.achievements-grid.academic-layout {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    max-width: 1320px;
-    gap: clamp(16px, 1.5vw, 24px);
-}
-
-.achievements-grid.academic-layout .cert-card {
-    grid-column: span 2;
-    width: 100%;
-}
-
-.achievements-grid.academic-layout .cert-card:nth-child(4) {
-    grid-column: 2 / span 2;
-    justify-self: stretch;
-}
-
-.achievements-grid.academic-layout .cert-card:nth-child(5) {
-    grid-column: 4 / span 2;
-    justify-self: stretch;
-}
-
-.achievements-grid.academic-layout .cert-img-wrapper {
-    height: clamp(205px, 16vw, 255px);
-}
-
-/* EXTRACURRICULAR: larger cards and certificate previews. */
-.achievements-grid:not(.academic-layout) .cert-card[data-category="extracurricular"] .cert-img-wrapper {
-    height: clamp(205px, 17vw, 260px);
-}
-
-/* Keep cards readable and grids balanced on medium-sized screens. */
-@media (max-width: 1100px) {
-    .achievements-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .achievements-grid.academic-layout {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-
-    .achievements-grid.academic-layout .cert-card:nth-child(4) {
-        grid-column: 2 / span 2;
-    }
-
-    .achievements-grid.academic-layout .cert-card:nth-child(5) {
-        grid-column: 4 / span 2;
-    }
-
-    .navbar {
-        gap: 16px;
-    }
-
-    .nav-links {
-        gap: clamp(10px, 1.4vw, 18px);
-    }
-
-    .nav-links a {
-        font-size: clamp(9px, 1.05vw, 12px);
-        letter-spacing: 0.04em;
-    }
-}
-
-/* On narrow screens, keep the navigation usable and cards in one column. */
-@media (max-width: 700px) {
-    :root {
-        --top: calc(var(--nav-top) + var(--nav-h) + 24px);
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .navbar {
-        justify-content: center;
-    }
-
-    .achievements-grid,
-    .achievements-grid.academic-layout {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        gap: var(--gap-m);
-    }
-
-    .achievements-grid .cert-card,
-    .achievements-grid.academic-layout .cert-card {
-        width: 100%;
-        max-width: 460px;
-    }
-
-    .cert-img-wrapper,
-    .achievements-grid.academic-layout .cert-img-wrapper,
-    .achievements-grid:not(.academic-layout) .cert-card[data-category="extracurricular"] .cert-img-wrapper {
-        height: clamp(190px, 55vw, 260px);
-    }
-}
-
-/* ==========================================================================
-   ACADEMIC VIEW: NO SCROLL (desktop/tablet)
-   Locks the page and only trims the certificate image height if the
-   viewport is too short for both rows. Card width/layout are unchanged.
-   ========================================================================== */
-@media (min-width: 701px) {
-    body:has(.achievements-grid.academic-layout) #education {
-        overflow-y: hidden;
-    }
-
-    .achievements-grid.academic-layout {
-        padding-bottom: 0;
-    }
-
-    .achievements-grid.academic-layout .cert-img-wrapper {
-        height: min(
-            clamp(205px, 16vw, 255px),
-            max(90px, calc((100dvh - var(--top) - 190px) / 2 - 84px))
-        );
-    }
-}
-
-/* ==========================================================================
-   EXTRACURRICULAR VIEW: three larger certificates in one row
-   ========================================================================== */
-.achievements-grid.extra-layout {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    max-width: 1320px;
-    gap: clamp(16px, 1.5vw, 28px);
-}
-
-.achievements-grid.extra-layout .cert-img-wrapper {
-    height: min(
-        clamp(260px, 23vw, 360px),
-        max(150px, calc(100dvh - var(--top) - 190px - 84px))
-    );
-}
-
-.achievements-grid.extra-layout .cert-info h4 {
-    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
-}
-
-.achievements-grid.extra-layout .cert-info p {
-    font-size: clamp(0.82rem, 0.95vw, 1rem);
-}
-
-@media (min-width: 701px) {
-    body:has(.achievements-grid.extra-layout) #education {
-        overflow-y: hidden;
-    }
-}
-
-@media (max-width: 1100px) {
-    .achievements-grid.extra-layout {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 700px) {
-    .achievements-grid.extra-layout .cert-img-wrapper {
-        height: clamp(220px, 70vw, 320px);
-    }
-}
-
-/* ==========================================================================
-   ACHIEVEMENTS: FIT-TO-SCREEN (no scrolling) + CLICK-TO-ZOOM LIGHTBOX
-   The grid fills whatever height is left under the header, so the cards
-   (and certificate previews) scale smoothly from laptop to large monitor.
-   ========================================================================== */
-.cert-card { cursor: pointer; }
-.cert-card:focus-visible { outline: 2px solid var(--neon-pink); outline-offset: 3px; }
-
-@media (min-width: 701px) and (min-height: 520px) {
-    #education { overflow-y: hidden; }
-
-    #education .section-header { margin-bottom: clamp(8px, calc(var(--u) * 1.4), 16px); }
-    #education .achievement-filters { margin-bottom: 0; }
-
-    #education .achievements-grid {
-        flex: 1 1 0;
-        min-height: 0;
-        padding-bottom: 0;
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        align-content: stretch;
-    }
-
-    /* Keep four columns for "All" all the way down to tablet width. */
-    #education .achievements-grid:not(.academic-layout):not(.extra-layout) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    /* Extracurricular: one row, capped height, centered vertically. */
-    #education .achievements-grid.extra-layout {
-        grid-template-rows: minmax(0, 1fr);
-        flex: 0 1 clamp(320px, calc(var(--u) * 68), 760px);
-        margin-block: auto;
-    }
-
-    #education .cert-card {
-        min-height: 0;
-        padding: clamp(8px, calc(var(--u) * 1.2), 14px);
-    }
-
-    /* The certificate preview takes all the space the card has left. */
-    #education .achievements-grid .cert-img-wrapper {
-        flex: 1 1 0;
-        height: auto;
-        min-height: 0;
-    }
-
-    #education .cert-info {
-        flex-shrink: 0;
-        margin-top: clamp(6px, calc(var(--u) * 1), 12px);
-    }
-
-    #education .cert-info h4 { font-size: clamp(0.78rem, calc(var(--u) * 1.9), 1.1rem); }
-    #education .cert-info p  { font-size: clamp(0.7rem, calc(var(--u) * 1.6), 0.95rem); }
-}
-
-/* --- Lightbox --- */
+/* --- Lightbox + Maximize / Zoom --- */
 .lightbox {
     position: fixed;
     inset: 0;
@@ -1100,34 +851,81 @@ body:has(#inspiration.active-tab) .next-arrow {
     align-items: center;
     justify-content: center;
     padding: clamp(14px, 3vw, 48px);
-    background: rgba(5, 8, 15, 0.88);
+    background: rgba(5, 8, 15, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
+    transition: opacity 0.25s ease, visibility 0.25s ease, padding 0.25s ease;
     cursor: zoom-out;
 }
 
 .lightbox.open { opacity: 1; visibility: visible; }
+
+.lightbox.maximized {
+    padding: 0;
+    background: rgba(5, 8, 15, 0.98);
+}
+
+.lightbox-actions {
+    position: fixed;
+    top: clamp(10px, 2vw, 24px);
+    right: clamp(10px, 2vw, 24px);
+    z-index: 2010;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lightbox-zoom-btn {
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 24px;
+    border: 1px solid var(--border-dark);
+    background: rgba(18, 23, 34, 0.92);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lightbox-zoom-btn:hover,
+.lightbox-zoom-btn:focus-visible {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink-glow);
+    outline: none;
+}
 
 .lightbox-figure {
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
+    gap: 12px;
     max-width: 100%;
-    transform: scale(0.88);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    max-height: 100%;
+    transform: scale(0.9);
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.25s ease, height 0.25s ease;
     cursor: default;
 }
 
 .lightbox.open .lightbox-figure { transform: scale(1); }
 
+.lightbox.maximized .lightbox-figure {
+    width: 100vw;
+    height: 100dvh;
+    gap: 0;
+}
+
 .lightbox-figure img {
     max-width: min(94vw, 1500px);
-    max-height: calc(100dvh - 170px);
+    max-height: calc(100dvh - 165px);
     width: auto;
     height: auto;
     object-fit: contain;
@@ -1136,6 +934,32 @@ body:has(#inspiration.active-tab) .next-arrow {
     border-radius: 12px;
     border: 2px solid var(--neon-pink);
     box-shadow: 0 0 55px var(--neon-pink-glow), 0 25px 60px rgba(0, 0, 0, 0.6);
+    cursor: zoom-in;
+    transition: transform 0.28s ease, max-width 0.25s ease, max-height 0.25s ease, border-radius 0.25s ease;
+}
+
+.lightbox.maximized .lightbox-figure img {
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: #05080F;
+    object-fit: contain;
+    cursor: zoom-out;
+}
+
+.lightbox.maximized .lightbox-figure figcaption {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(9, 13, 22, 0.85);
+    padding: 8px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border-dark);
 }
 
 .lightbox-figure figcaption { text-align: center; }
@@ -1153,16 +977,13 @@ body:has(#inspiration.active-tab) .next-arrow {
 }
 
 .lightbox-close {
-    position: absolute;
-    top: clamp(10px, 2vw, 28px);
-    right: clamp(10px, 2vw, 28px);
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 1px solid var(--border-dark);
-    background: rgba(18, 23, 34, 0.9);
+    background: rgba(18, 23, 34, 0.92);
     color: var(--text-primary);
-    font-size: 28px;
+    font-size: 26px;
     line-height: 1;
     cursor: pointer;
     transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -1175,87 +996,76 @@ body:has(#inspiration.active-tab) .next-arrow {
     box-shadow: 0 0 22px var(--neon-pink-glow);
     outline: none;
 }
+
 /* ==========================================================================
-   ACHIEVEMENTS: 6 academic cards (Elementary -> Senior High) + 9 total
-   Academic: clean 3 x 2 grid. All: 5 columns x 2 rows.
+   RESPONSIVE ADAPTATIONS
    ========================================================================== */
-.achievements-grid.academic-layout .cert-card:nth-child(4),
-.achievements-grid.academic-layout .cert-card:nth-child(5) {
-    grid-column: span 2;
-    justify-self: stretch;
+
+@media (max-width: 1100px) {
+    .navbar { gap: 16px; }
+    .nav-links { gap: clamp(10px, 1.4vw, 18px); }
+    .nav-links a { font-size: clamp(9px, 1.05vw, 12px); letter-spacing: 0.04em; }
 }
 
-.achievements-grid:not(.academic-layout):not(.extra-layout) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-}
+@media (max-width: 850px) {
+    .schools-columns-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 
-@media (min-width: 701px) and (min-height: 520px) {
-    #education .achievements-grid:not(.academic-layout):not(.extra-layout) {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+    .ff-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 }
 
-@media (max-width: 700px) {
-    .achievements-grid:not(.academic-layout):not(.extra-layout) {
-        grid-template-columns: none;
+@media (min-width: 701px) and (max-aspect-ratio: 1/1) {
+    .hero-content {
+        display: flex;
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: var(--gap-l);
+        height: auto;
     }
-}
-
-/* ==========================================================================
-   ACHIEVEMENTS "ALL": 5 on top, the 4 below centered (10-track grid)
-   + school name above each title, with full text visible (no ellipsis)
-   ========================================================================== */
-.achievements-grid:not(.academic-layout):not(.extra-layout),
-#education .achievements-grid:not(.academic-layout):not(.extra-layout) {
-    grid-template-columns: repeat(10, minmax(0, 1fr));
-}
-
-.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card {
-    grid-column: span 2;
-}
-.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(6) { grid-column: 2 / span 2; }
-.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(7) { grid-column: 4 / span 2; }
-.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(8) { grid-column: 6 / span 2; }
-.achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card:nth-child(9) { grid-column: 8 / span 2; }
-
-.cert-school {
-    display: block;
-    color: var(--neon-pink);
-    font-size: 0.74rem;
-    font-weight: 800;
-    line-height: 1.25;
-    letter-spacing: 0.02em;
-    margin-bottom: 3px;
-}
-
-.cert-info h4,
-.cert-info p {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    overflow-wrap: anywhere;
-}
-
-@media (min-width: 701px) and (min-height: 520px) {
-    #education .cert-school { font-size: clamp(0.64rem, calc(var(--u) * 1.45), 0.9rem); }
+    .hero-text { align-items: center; text-align: center; }
+    .hero-text h1 { font-size: clamp(36px, 8vw, 84px); }
+    .hero-desc { max-width: 30em; }
+    .photo-area { height: auto; }
+    .photo-circle-frame { width: clamp(200px, min(42vh, 52vw), 360px); height: auto; }
+    .contact-wrapper { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {
-    .achievements-grid:not(.academic-layout):not(.extra-layout) .cert-card { grid-column: auto; }
-}
+    :root {
+        --top: calc(var(--nav-top) + var(--nav-h) + 20px);
+    }
 
-/* ==========================================================================
-   ACHIEVEMENTS: LARGER, MORE READABLE CARD TEXT
-   ========================================================================== */
-.cert-school { font-size: 0.9rem; }
-.cert-info h4 { font-size: 1.02rem; line-height: 1.25; }
-.cert-info p  { font-size: 0.92rem; }
+    .nav-links { display: none; }
+    .navbar { justify-content: center; }
 
-@media (min-width: 701px) and (min-height: 520px) {
-    #education .cert-school { font-size: clamp(0.85rem, calc(var(--u) * 2.1), 1.15rem); }
-    #education .cert-info h4 { font-size: clamp(0.98rem, calc(var(--u) * 2.5), 1.35rem); }
-    #education .cert-info p  { font-size: clamp(0.88rem, calc(var(--u) * 2.1), 1.15rem); }
+    .hero-content {
+        display: flex;
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: var(--gap-m);
+        height: auto;
+    }
+    .hero-text { align-items: center; text-align: center; }
+    .hero-text h1 { font-size: clamp(28px, 8.5vw, 42px); }
+    .hero-buttons { justify-content: center; }
+    .photo-area { height: auto; }
+    .photo-circle-frame { width: clamp(160px, 48vw, 240px); height: auto; }
 
-    #education .achievements-grid.extra-layout .cert-info h4 { font-size: clamp(1.05rem, 1.4vw, 1.4rem); }
-    #education .achievements-grid.extra-layout .cert-info p  { font-size: clamp(0.92rem, 1.15vw, 1.15rem); }
+    .about-main-layout,
+    .contact-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: none;
+        gap: var(--gap-s);
+        width: 100%;
+        height: auto;
+        align-items: center;
+    }
+    .about-circle-frame { width: clamp(100px, 30vw, 150px); }
+    .skills-internal-split { gap: var(--gap-m); }
 }

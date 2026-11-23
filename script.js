@@ -1,4 +1,4 @@
-const sections = ['home', 'about', 'education', 'inspiration'];
+const sections = ['home', 'about', 'education', 'inspiration', 'contact'];
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
@@ -9,28 +9,24 @@ function updateArrowVisibility(targetId) {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    if (targetId === 'home') {
-        prevBtn.style.display = 'none';
-    } else {
-        prevBtn.style.display = 'flex';
+    if (prevBtn) {
+        prevBtn.style.display = targetId === 'home' ? 'none' : 'flex';
     }
 
-    if (targetId === 'contact') {
-        nextBtn.style.display = 'none';
-    } else {
-        nextBtn.style.display = 'flex';
+    if (nextBtn) {
+        nextBtn.style.display = (targetId === 'inspiration' || targetId === 'contact') ? 'none' : 'flex';
     }
 }
 
 function switchTab(targetId) {
     document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab'));
     document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
-    
+
     const targetSection = document.getElementById(targetId);
     if (targetSection) {
         targetSection.classList.add('active-tab');
     }
-    
+
     document.querySelectorAll(`.nav-link[data-target="${targetId}"]`).forEach(nav => {
         nav.classList.add('active');
     });
@@ -39,10 +35,10 @@ function switchTab(targetId) {
 }
 
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('data-target');
-        switchTab(targetId);
+        if (targetId) switchTab(targetId);
     });
 });
 
@@ -57,7 +53,7 @@ function step(direction) {
     if (!activeSec) return;
 
     if (activeSec.id === 'contact') {
-        if (direction < 0) switchTab('home');
+        if (direction < 0) switchTab('inspiration');
         return;
     }
 
@@ -96,98 +92,175 @@ document.addEventListener('touchend', e => {
 
 updateArrowVisibility('home');
 
-// --- Achievements Filter Controller ---
+// --- 3-School Auto-Transition Showcase + Lightbox (with Maximize/Zoom) ---
 document.addEventListener('DOMContentLoaded', () => {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const grid = document.getElementById('achievementsGrid');
-    const certCards = Array.from(document.querySelectorAll('.cert-card'));
-
-    if (!certCards.length) return;
-
-    function renderAchievements(filter) {
-        if (grid) {
-            grid.classList.toggle('academic-layout', filter === 'academic');
-            grid.classList.toggle('extra-layout', filter === 'extracurricular');
-        }
-
-        certCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const currentFilter = btn.getAttribute('data-filter');
-            renderAchievements(currentFilter);
-        });
-    });
-
-    renderAchievements('all');
-});
-
-// --- Certificate Lightbox (click / tap / Enter to zoom) ---
-document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.getElementById('achievementsGrid');
+    const columns = Array.from(document.querySelectorAll('.school-column'));
+    const ffCards = Array.from(document.querySelectorAll('.ff-card.zoomable-photo'));
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lightboxImg');
     const lbTitle = document.getElementById('lightboxTitle');
     const lbMeta = document.getElementById('lightboxMeta');
     const lbClose = document.getElementById('lightboxClose');
-    if (!grid || !lightbox) return;
+    const lbZoomBtn = document.getElementById('lightboxZoomBtn');
 
     let lastFocus = null;
+    let isMaximized = false;
 
-    document.querySelectorAll('.cert-card').forEach(card => {
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-    });
+    function syncZoomButtonLabel() {
+        if (!lbZoomBtn) return;
+        lbZoomBtn.textContent = isMaximized ? 'Exit Zoom -' : 'Zoom +';
+        lbZoomBtn.setAttribute('aria-pressed', String(isMaximized));
+    }
 
-    function openLightbox(card) {
-        const img = card.querySelector('img');
-        if (!img) return;
-        lbImg.src = img.currentSrc || img.src;
-        lbImg.alt = img.alt;
-        lbTitle.textContent = card.querySelector('h4')?.textContent || '';
-        lbMeta.textContent = [card.querySelector('.cert-school')?.textContent, card.querySelector('p')?.textContent].filter(Boolean).join(' • ');
+    function setMaximized(state) {
+        if (!lightbox) return;
+        isMaximized = Boolean(state);
+        lightbox.classList.toggle('maximized', isMaximized);
+        syncZoomButtonLabel();
+    }
+
+    function openPreview({ src, alt, title, meta, maximizeByDefault = false }) {
+        if (!lightbox || !lbImg || !src) return;
+        lbImg.src = src;
+        lbImg.alt = alt || title || 'Preview';
+        if (lbTitle) lbTitle.textContent = title || '';
+        if (lbMeta) lbMeta.textContent = meta || '';
+
         lastFocus = document.activeElement;
+        setMaximized(maximizeByDefault);
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', 'false');
-        lbClose.focus({ preventScroll: true });
+        (lbZoomBtn || lbClose)?.focus({ preventScroll: true });
     }
 
     function closeLightbox() {
+        if (!lightbox) return;
+        setMaximized(false);
         lightbox.classList.remove('open');
         lightbox.setAttribute('aria-hidden', 'true');
         if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     }
 
-    grid.addEventListener('click', e => {
-        const card = e.target.closest('.cert-card');
-        if (card) openLightbox(card);
-    });
+    function syncColumnMeta(col, slide) {
+        const schoolNameEl = col.querySelector('.meta-school-name');
+        const yearCatEl = col.querySelector('.meta-year-cat');
+        const captionBox = col.querySelector('.school-meta-caption');
+        if (!schoolNameEl || !yearCatEl || !slide) return;
 
-    grid.addEventListener('keydown', e => {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        const card = e.target.closest('.cert-card');
-        if (!card) return;
-        e.preventDefault();
-        openLightbox(card);
-    });
+        const schoolName = slide.getAttribute('data-school-name') || '';
+        const year = slide.getAttribute('data-year') || '';
+        const category = slide.getAttribute('data-category') || '';
 
-    // Click on the dark backdrop (not the picture) or the X closes it.
-    lightbox.addEventListener('click', e => {
-        if (e.target === lightbox || e.target === lbClose || e.target.closest('.lightbox-figure') === null) {
-            closeLightbox();
+        if (captionBox) captionBox.classList.add('fading');
+        setTimeout(() => {
+            schoolNameEl.textContent = schoolName;
+            yearCatEl.textContent = [year, category].filter(Boolean).join(' • ');
+            if (captionBox) captionBox.classList.remove('fading');
+        }, 160);
+    }
+
+    columns.forEach((col, colIndex) => {
+        const slides = Array.from(col.querySelectorAll('.showcase-slide'));
+        const frame = col.querySelector('.school-showcase-frame');
+        if (!slides.length) return;
+
+        let currentIndex = slides.findIndex(s => s.classList.contains('active'));
+        if (currentIndex < 0) currentIndex = 0;
+
+        function showSlide(nextIdx) {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (nextIdx + slides.length) % slides.length;
+            slides[currentIndex].classList.add('active');
+            syncColumnMeta(col, slides[currentIndex]);
+        }
+
+        if (slides.length > 1) {
+            setTimeout(() => {
+                setInterval(() => {
+                    if (!isLightboxOpen()) {
+                        showSlide(currentIndex + 1);
+                    }
+                }, 3200);
+            }, colIndex * 700);
+        }
+
+        if (frame) {
+            frame.setAttribute('tabindex', '0');
+            frame.setAttribute('role', 'button');
+
+            const openCurrentSlide = () => {
+                const activeSlide = slides[currentIndex];
+                const img = activeSlide?.querySelector('img');
+                if (!img) return;
+
+                openPreview({
+                    src: img.currentSrc || img.src,
+                    alt: img.alt,
+                    title: img.alt || 'Certificate Preview',
+                    meta: [
+                        activeSlide.getAttribute('data-school-name'),
+                        activeSlide.getAttribute('data-year'),
+                        activeSlide.getAttribute('data-category')
+                    ].filter(Boolean).join(' • '),
+                    maximizeByDefault: false
+                });
+            };
+
+            frame.addEventListener('click', openCurrentSlide);
+            frame.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openCurrentSlide();
+                }
+            });
         }
     });
+
+    ffCards.forEach(card => {
+        const handleOpen = () => {
+            const img = card.querySelector('img');
+            if (!img) return;
+            const title = card.getAttribute('data-title') || card.querySelector('h3')?.textContent || '';
+            const meta = card.getAttribute('data-meta') || card.querySelector('p')?.textContent || '';
+            openPreview({
+                src: img.currentSrc || img.src,
+                alt: img.alt || title,
+                title,
+                meta,
+                maximizeByDefault: true
+            });
+        };
+
+        card.addEventListener('click', handleOpen);
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleOpen();
+            }
+        });
+    });
+
+    if (lbZoomBtn) {
+        lbZoomBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            setMaximized(!isMaximized);
+        });
+    }
+
+    if (lbImg) {
+        lbImg.addEventListener('click', e => {
+            e.stopPropagation();
+            setMaximized(!isMaximized);
+        });
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox || e.target === lbClose || e.target.closest('.lightbox-figure') === null) {
+                closeLightbox();
+            }
+        });
+    }
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && isLightboxOpen()) closeLightbox();
