@@ -92,10 +92,13 @@ document.addEventListener('touchend', e => {
 
 updateArrowVisibility('home');
 
-// --- 3-School Auto-Transition Showcase + Lightbox (with Maximize/Zoom) ---
+// --- Achievements Filter + Family & Friends Zoom + Lightbox ---
 document.addEventListener('DOMContentLoaded', () => {
-    const columns = Array.from(document.querySelectorAll('.school-column'));
+    const schoolButtons = Array.from(document.querySelectorAll('.ach-edu-item'));
+    const catButtons = Array.from(document.querySelectorAll('.ach-pill'));
+    const certCards = Array.from(document.querySelectorAll('.ach-cert-card'));
     const ffCards = Array.from(document.querySelectorAll('.ff-card.zoomable-photo'));
+
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lightboxImg');
     const lbTitle = document.getElementById('lightboxTitle');
@@ -103,8 +106,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const lbClose = document.getElementById('lightboxClose');
     const lbZoomBtn = document.getElementById('lightboxZoomBtn');
 
+    let activeSchool = document.querySelector('.ach-edu-item.active')?.getAttribute('data-school-filter') || 'all';
+    let activeCat = 'all';
     let lastFocus = null;
     let isMaximized = false;
+
+    function applyAchievementFilters() {
+        certCards.forEach(card => {
+            const schoolMatch = activeSchool === 'all' || card.getAttribute('data-school') === activeSchool;
+            const catMatch = activeCat === 'all' || card.getAttribute('data-cat') === activeCat;
+            card.classList.toggle('hidden-card', !(schoolMatch && catMatch));
+        });
+    }
+
+    applyAchievementFilters();
+
+    schoolButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            schoolButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeSchool = btn.getAttribute('data-school-filter') || 'all';
+            applyAchievementFilters();
+        });
+    });
+
+    catButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            catButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeCat = btn.getAttribute('data-cat-filter') || 'all';
+            applyAchievementFilters();
+        });
+    });
 
     function syncZoomButtonLabel() {
         if (!lbZoomBtn) return;
@@ -141,79 +174,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     }
 
-    function syncColumnMeta(col, slide) {
-        const schoolNameEl = col.querySelector('.meta-school-name');
-        const yearCatEl = col.querySelector('.meta-year-cat');
-        const captionBox = col.querySelector('.school-meta-caption');
-        if (!schoolNameEl || !yearCatEl || !slide) return;
-
-        const schoolName = slide.getAttribute('data-school-name') || '';
-        const year = slide.getAttribute('data-year') || '';
-        const category = slide.getAttribute('data-category') || '';
-
-        if (captionBox) captionBox.classList.add('fading');
-        setTimeout(() => {
-            schoolNameEl.textContent = schoolName;
-            yearCatEl.textContent = [year, category].filter(Boolean).join(' • ');
-            if (captionBox) captionBox.classList.remove('fading');
-        }, 160);
-    }
-
-    columns.forEach((col, colIndex) => {
-        const slides = Array.from(col.querySelectorAll('.showcase-slide'));
-        const frame = col.querySelector('.school-showcase-frame');
-        if (!slides.length) return;
-
-        let currentIndex = slides.findIndex(s => s.classList.contains('active'));
-        if (currentIndex < 0) currentIndex = 0;
-
-        function showSlide(nextIdx) {
-            slides[currentIndex].classList.remove('active');
-            currentIndex = (nextIdx + slides.length) % slides.length;
-            slides[currentIndex].classList.add('active');
-            syncColumnMeta(col, slides[currentIndex]);
-        }
-
-        if (slides.length > 1) {
-            setTimeout(() => {
-                setInterval(() => {
-                    if (!isLightboxOpen()) {
-                        showSlide(currentIndex + 1);
-                    }
-                }, 3200);
-            }, colIndex * 700);
-        }
-
-        if (frame) {
-            frame.setAttribute('tabindex', '0');
-            frame.setAttribute('role', 'button');
-
-            const openCurrentSlide = () => {
-                const activeSlide = slides[currentIndex];
-                const img = activeSlide?.querySelector('img');
-                if (!img) return;
-
-                openPreview({
-                    src: img.currentSrc || img.src,
-                    alt: img.alt,
-                    title: img.alt || 'Certificate Preview',
-                    meta: [
-                        activeSlide.getAttribute('data-school-name'),
-                        activeSlide.getAttribute('data-year'),
-                        activeSlide.getAttribute('data-category')
-                    ].filter(Boolean).join(' • '),
-                    maximizeByDefault: false
-                });
-            };
-
-            frame.addEventListener('click', openCurrentSlide);
-            frame.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    openCurrentSlide();
-                }
+    certCards.forEach(card => {
+        const openCert = () => {
+            const img = card.querySelector('img');
+            if (!img) return;
+            const title = card.querySelector('.ach-cert-caption h4')?.textContent || img.alt || 'Certificate';
+            const meta = card.querySelector('.ach-cert-caption p')?.textContent || '';
+            openPreview({
+                src: img.currentSrc || img.src,
+                alt: img.alt || title,
+                title,
+                meta,
+                maximizeByDefault: false
             });
-        }
+        };
+
+        card.addEventListener('click', openCert);
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openCert();
+            }
+        });
     });
 
     ffCards.forEach(card => {
@@ -266,3 +248,50 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && isLightboxOpen()) closeLightbox();
     });
 });
+
+// --- Personal Information: auto-fit so nothing overflows or needs scrolling ---
+(function () {
+    const about = document.getElementById('about');
+    if (!about) return;
+
+    const MIN_SCALE = 0.45;
+    const STEP = 0.03;
+
+    function overflows() {
+        if (about.scrollHeight > about.clientHeight + 1) return true;
+
+        const boxes = about.querySelectorAll(
+            '.about-left-col, .about-right-col, .left-info-card, .profile-bio-card, .skills-main-box, .bio-text, .skills-list'
+        );
+        for (const el of boxes) {
+            if (el.scrollHeight > el.clientHeight + 1) return true;
+        }
+
+        for (const li of about.querySelectorAll('.specs-list li')) {
+            if (li.scrollWidth > li.clientWidth + 1) return true;
+        }
+        return false;
+    }
+
+    function fitAbout() {
+        let scale = 1;
+        about.style.setProperty('--fit', scale);
+        while (scale > MIN_SCALE && overflows()) {
+            scale = Math.round((scale - STEP) * 100) / 100;
+            about.style.setProperty('--fit', scale);
+        }
+    }
+
+    let raf = 0;
+    function scheduleFit() {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(fitAbout);
+    }
+
+    fitAbout();
+    window.addEventListener('load', scheduleFit);
+    window.addEventListener('resize', scheduleFit);
+    window.addEventListener('orientationchange', scheduleFit);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', scheduleFit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+})();

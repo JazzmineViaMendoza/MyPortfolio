@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
 
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=29">
 </head>
 
 <body>
@@ -136,127 +136,156 @@
         </div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION (3 Columns: OLSHCO -> SDNTS -> Triala) -->
+    <!-- ACHIEVEMENTS SECTION (Left 3 Schools + Right Certificates Grid, No Auto-Transition) -->
     <section id="education" class="tab-section">
         <div class="section-header">
             <span class="section-tag">MILESTONES &amp; DISTINCTIONS</span>
             <h2>My <span class="highlight-pink">Achievements</span></h2>
         </div>
 
-        <div class="schools-columns-row" id="achievementsGrid">
+        <div class="ach-layout">
+            <!-- Left Column: Education (Only the 3 Schools) -->
+            <aside class="ach-edu-col" aria-label="Education">
+                <h3 class="ach-col-heading">Education</h3>
 
-            <!-- Column 1: OLSHCO -->
-            <div class="school-column" data-school-column="olshco">
-                <div class="school-col-header">
-                    <span class="school-col-title">OLSHCO</span>
-                    <img src="logo-olshco.jpg" alt="OLSHCO Logo" class="school-col-logo">
+                <div class="ach-edu-list">
+
+                    <button type="button" class="ach-edu-item active" data-school-filter="olshco">
+                        <img src="logo-olshco.jpg" alt="OLSHCO Logo" class="ach-edu-logo">
+                        <div class="ach-edu-info">
+                            <strong>2024 OLSHCO</strong>
+                            <span>Senior High School • Guimba, Nueva Ecija</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="ach-edu-item" data-school-filter="sdnts">
+                        <img src="logo-sdnts.jpg" alt="Sto. Domingo National Trade School Logo" class="ach-edu-logo">
+                        <div class="ach-edu-info">
+                            <strong>2022 Sto. Domingo National Trade School</strong>
+                            <span>Junior High School • Nueva Ecija</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="ach-edu-item" data-school-filter="triala">
+                        <img src="logo-triala.jpg" alt="Triala Elementary School Logo" class="ach-edu-logo">
+                        <div class="ach-edu-info">
+                            <strong>2018 Triala Elementary School</strong>
+                            <span>Elementary • Triala, Guimba, Nueva Ecija</span>
+                        </div>
+                    </button>
                 </div>
+            </aside>
 
-                <div class="school-showcase-frame">
-                    <div class="showcase-slide active"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="SY 2022–2023"
-                        data-category="Academic">
-                        <img src="GR11 Honors.jpg" alt="Grade 11 Honors" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="SY 2023–2024"
-                        data-category="Academic">
-                        <img src="With Honors.jpg" alt="Grade 12 Academic Excellence" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="March 2024"
-                        data-category="Academic">
-                        <img src="Work Immersion.jpg" alt="Work Immersion Completion" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="March 2024"
-                        data-category="Extracurricular">
-                        <img src="Technical.png" alt="Best Technical Award" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="March 2024"
-                        data-category="Extracurricular">
-                        <img src="DSPC 2nd.jpg" alt="DSPC 2nd Place TV News Broadcast" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Our Lady of the Sacred Heart College of Guimba, Inc."
-                        data-year="September 2023"
-                        data-category="Extracurricular">
-                        <img src="STEMAZING.png" alt="STEMazing Science Video Editing Champion" decoding="async">
+            <!-- Right Column: Certificates + Category Pills + Grid -->
+            <div class="ach-certs-col">
+                <div class="ach-certs-top">
+                    <h3 class="ach-col-heading">Certificates</h3>
+                    <div class="ach-filter-pills" role="tablist" aria-label="Certificate categories">
+                        <button type="button" class="ach-pill active" data-cat-filter="all">All</button>
+                        <button type="button" class="ach-pill" data-cat-filter="Academic">Academic</button>
+                        <button type="button" class="ach-pill" data-cat-filter="Extracurricular">Extracurricular</button>
                     </div>
                 </div>
 
-                <div class="school-meta-caption">
-                    <p class="meta-school-name">Our Lady of the Sacred Heart College of Guimba, Inc.</p>
-                    <p class="meta-year-cat">SY 2022–2023 • Academic</p>
+                <div class="ach-certs-grid" id="achievementsGrid">
+                    <!-- OLSHCO -->
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="With Honors.jpg" alt="Grade 12 Academic Excellence" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Grade 12 Academic Excellence</h4>
+                            <p>OLSHCO • SY 2023–2024 • Academic</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="GR11 Honors.jpg" alt="Grade 11 Honors" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Grade 11 Honors</h4>
+                            <p>OLSHCO • SY 2022–2023 • Academic</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="Work Immersion.jpg" alt="Work Immersion Completion" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Work Immersion Completion</h4>
+                            <p>OLSHCO • March 2024 • Academic</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="DSPC 2nd.jpg" alt="DSPC 2nd Place TV News Broadcast" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>DSPC 2nd Place TV News Broadcast</h4>
+                            <p>OLSHCO • March 2024 • Extracurricular</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="Technical.png" alt="Best Technical Award" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Best Technical Award</h4>
+                            <p>OLSHCO • March 2024 • Extracurricular</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="STEMAZING.png" alt="STEMazing Science Video Editing Champion" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>STEMazing Video Editing Champion</h4>
+                            <p>OLSHCO • September 2023 • Extracurricular</p>
+                        </div>
+                    </article>
+
+                    <!-- Sto. Domingo National Trade School -->
+                    <article class="ach-cert-card" data-school="sdnts" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="Katunayan.jpg" alt="Junior High School Katunayan" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Junior High School Katunayan</h4>
+                            <p>Sto. Domingo National Trade School • July 2022</p>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="sdnts" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="GR10 Honors.jpg" alt="Grade 10 Honors" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Grade 10 Honors</h4>
+                            <p>Sto. Domingo National Trade School • SY 2021–2022</p>
+                        </div>
+                    </article>
+
+                    <!-- Triala Elementary School -->
+                    <article class="ach-cert-card" data-school="triala" data-cat="Academic" tabindex="0" role="button">
+                        <div class="ach-cert-img">
+                            <img src="Elem Katunayan.jpg" alt="Elementary School Katunayan ng Pagtatapos" decoding="async">
+                        </div>
+                        <div class="ach-cert-caption">
+                            <h4>Elementary Katunayan ng Pagtatapos</h4>
+                            <p>Triala Elementary School • April 2018 • Academic</p>
+                        </div>
+                    </article>
                 </div>
             </div>
-
-            <!-- Column 2: Sto. Domingo National Trade School -->
-            <div class="school-column" data-school-column="sdnts">
-                <div class="school-col-header">
-                    <span class="school-col-title">Sto. Domingo National Trade School</span>
-                    <img src="logo-sdnts.jpg" alt="Sto. Domingo National Trade School Logo" class="school-col-logo">
-                </div>
-
-                <div class="school-showcase-frame">
-                    <div class="showcase-slide active"
-                        data-school-name="Sto. Domingo National Trade School"
-                        data-year="July 2022"
-                        data-category="Academic">
-                        <img src="Katunayan.jpg" alt="Junior High School Katunayan" decoding="async">
-                    </div>
-
-                    <div class="showcase-slide"
-                        data-school-name="Sto. Domingo National Trade School"
-                        data-year="SY 2021–2022"
-                        data-category="Academic">
-                        <img src="GR10 Honors.jpg" alt="Grade 10 Honors" decoding="async">
-                    </div>
-                </div>
-
-                <div class="school-meta-caption">
-                    <p class="meta-school-name">Sto. Domingo National Trade School</p>
-                    <p class="meta-year-cat">July 2022 • Academic</p>
-                </div>
-            </div>
-
-            <!-- Column 3: Triala Elementary School -->
-            <div class="school-column" data-school-column="triala">
-                <div class="school-col-header">
-                    <span class="school-col-title">Triala Elementary School</span>
-                    <img src="logo-triala.jpg" alt="Triala Elementary School Logo" class="school-col-logo">
-                </div>
-
-                <div class="school-showcase-frame">
-                    <div class="showcase-slide active"
-                        data-school-name="Triala Elementary School"
-                        data-year="April 2018"
-                        data-category="Academic">
-                        <img src="Elem Katunayan.jpg" alt="Elementary School Katunayan ng Pagtatapos" decoding="async">
-                    </div>
-                </div>
-
-                <div class="school-meta-caption">
-                    <p class="meta-school-name">Triala Elementary School</p>
-                    <p class="meta-year-cat">April 2018 • Academic</p>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- FAMILY & FRIENDS SECTION (3 Equal Cards + Zoom + Maximize) -->
+    <!-- FAMILY & FRIENDS SECTION (Original 3-Card Layout + Full Group Visibility + Zoom) -->
     <section id="inspiration" class="tab-section">
         <div class="section-header">
             <span class="section-tag">VALUES &amp; MOTIVATION</span>
@@ -270,7 +299,7 @@
                 tabindex="0"
                 role="button">
                 <div class="ff-img-box">
-                    <img src="inspiration.jpg" alt="My Mom" decoding="async">
+                    <img src="inspiration.jpg" alt="My Mom" class="pos-mom" decoding="async">
                 </div>
                 <div class="ff-body">
                     <h3>My Mom</h3>
@@ -284,7 +313,7 @@
                 tabindex="0"
                 role="button">
                 <div class="ff-img-box">
-                    <img src="siblings.jpg" alt="My Siblings" decoding="async">
+                    <img src="siblings.jpg" alt="My Siblings" class="pos-siblings" decoding="async">
                 </div>
                 <div class="ff-body">
                     <h3>My Siblings</h3>
@@ -298,7 +327,7 @@
                 tabindex="0"
                 role="button">
                 <div class="ff-img-box">
-                    <img src="friends.jpg" alt="My Friends" decoding="async">
+                    <img src="friends.jpg" alt="My Friends" class="pos-friends" decoding="async">
                 </div>
                 <div class="ff-body">
                     <h3>My Friends</h3>
@@ -370,7 +399,7 @@
     </div>
 
     <!-- Link to external JS -->
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=29"></script>
 </body>
 
 </html>

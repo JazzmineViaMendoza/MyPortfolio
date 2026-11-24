@@ -226,7 +226,7 @@ body:has(#contact.active-tab) .next-arrow {
 /* --- Hero / Home Section --- */
 .hero-content {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.25fr 0.75fr;
     gap: var(--gap-l);
     align-items: center;
     max-width: 1600px;
@@ -318,8 +318,8 @@ body:has(#contact.active-tab) .next-arrow {
 
 .photo-circle-frame {
     height: min(100%, calc(100dvh - var(--top) - 24px));
-    max-width: 100%;
-    aspect-ratio: 2 / 3;
+    max-width: min(100%, 34vw);
+    aspect-ratio: 4 / 5;
     border-radius: var(--radius);
     overflow: hidden;
     border: 4px solid var(--neon-pink);
@@ -348,7 +348,7 @@ body:has(#contact.active-tab) .next-arrow {
     border-radius: 50%;
 }
 
-/* --- Personal Information Section --- */
+/* --- Personal Information Section (Full Fill, No Empty Spaces) --- */
 .about-main-layout {
     flex: 1;
     min-height: 0;
@@ -366,7 +366,7 @@ body:has(#contact.active-tab) .next-arrow {
 .about-right-col {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-s);
+    gap: var(--gap-m);
     min-width: 0;
     height: 100%;
     min-height: 0;
@@ -380,7 +380,7 @@ body:has(#contact.active-tab) .next-arrow {
 }
 
 .about-circle-frame {
-    width: clamp(108px, calc(var(--u) * 24), 260px);
+    width: calc(clamp(64px, calc(var(--u) * 21), 240px) * var(--fit, 1));
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
@@ -391,7 +391,7 @@ body:has(#contact.active-tab) .next-arrow {
 }
 
 .left-info-card {
-    flex: 1 1 0;
+    flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
@@ -399,36 +399,38 @@ body:has(#contact.active-tab) .next-arrow {
 }
 
 .profile-bio-card {
-    flex: 1.15 1 0;
+    flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .skills-main-box {
-    flex: 0.95 1 0;
+    flex: 1 1 auto;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .left-info-card, .profile-bio-card, .skills-main-box {
     background: var(--bg-card);
-    border: 1px solid var(--border-dark);
+    border: 1px solid #243049;
     border-radius: var(--radius);
-    padding: clamp(7px, calc(var(--u) * 1.1), 16px) clamp(12px, calc(var(--u) * 2), 28px);
+    padding: calc(clamp(8px, calc(var(--u) * 1.4), 20px) * var(--fit, 1)) calc(clamp(12px, calc(var(--u) * 2), 30px) * var(--fit, 1));
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
 }
 
 .profile-bio-card h3, .skills-main-title {
-    font-size: clamp(15px, calc(var(--u) * 2.4), 28px);
+    font-size: calc(clamp(14px, calc(var(--u) * 2.8), 32px) * var(--fit, 1));
     font-weight: 800;
     color: var(--text-primary);
-    margin-bottom: clamp(4px, calc(var(--u) * 0.6), 8px);
+    flex-shrink: 0;
+    margin-bottom: calc(clamp(5px, calc(var(--u) * 0.8), 10px) * var(--fit, 1));
     border-bottom: 2px solid var(--neon-pink);
-    padding-bottom: 2px;
+    padding-bottom: 3px;
     display: inline-block;
     align-self: flex-start;
 }
@@ -439,15 +441,15 @@ body:has(#contact.active-tab) .next-arrow {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    gap: 1px;
+    gap: 2px;
 }
 
 .specs-list li {
-    font-size: clamp(10.5px, calc(var(--u) * 1.42), 14px);
-    line-height: 1.25;
+    font-size: calc(clamp(10px, calc(var(--u) * 1.9), 19px) * var(--fit, 1));
+    line-height: 1.28;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-dark);
-    padding-bottom: 2px;
+    padding-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -464,35 +466,53 @@ body:has(#contact.active-tab) .next-arrow {
     margin-right: 4px;
 }
 
+.bio-text {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 .bio-text p {
-    font-size: clamp(11.5px, calc(var(--u) * 1.72), 18px);
+    font-size: calc(clamp(11px, calc(var(--u) * 2.1), 23px) * var(--fit, 1));
     color: var(--text-secondary);
-    line-height: 1.42;
-    margin-bottom: clamp(4px, calc(var(--u) * 0.6), 8px);
+    line-height: 1.5;
+    margin-bottom: clamp(5px, calc(var(--u) * 0.7), 10px);
 }
 .bio-text p:last-child { margin-bottom: 0; }
 
 .skills-internal-split {
+    flex: 1;
+    min-height: 0;
     display: flex;
     gap: var(--gap-l);
-    align-items: flex-start;
+    align-items: stretch;
 }
 
-.sub-skill-col { flex: 1; }
+.sub-skill-col {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
 
 .sub-skill-heading {
-    font-size: clamp(13px, calc(var(--u) * 1.85), 20px);
+    font-size: calc(clamp(13px, calc(var(--u) * 2.3), 26px) * var(--fit, 1));
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 2px;
+    flex-shrink: 0;
+    margin-bottom: 3px;
 }
 
 .card-pink-divider {
     width: 100%;
     height: 2px;
+    flex-shrink: 0;
     background: var(--neon-pink);
     box-shadow: 0 0 10px var(--neon-pink);
-    margin-bottom: 5px;
+    margin-bottom: clamp(6px, calc(var(--u) * 0.8), 10px);
 }
 
 .vertical-skills-divider {
@@ -503,133 +523,254 @@ body:has(#contact.active-tab) .next-arrow {
 }
 
 .skills-list {
+    flex: 1;
+    min-height: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: clamp(1px, calc(var(--u) * 0.32), 5px);
+    justify-content: space-evenly;
+    gap: clamp(2px, calc(var(--u) * 0.4), 6px);
 }
 
 .skills-list li {
-    font-size: clamp(11px, calc(var(--u) * 1.5), 15px);
-    line-height: 1.28;
+    font-size: calc(clamp(11px, calc(var(--u) * 2), 21px) * var(--fit, 1));
+    line-height: 1.32;
     color: var(--text-primary);
     font-weight: 600;
 }
 
 /* ==========================================================================
-   ACHIEVEMENTS 3-COLUMN AUTO-TRANSITION SHOWCASE (NO SCROLL)
+   ACHIEVEMENTS WORKSPACE: EDUCATION (3 SCHOOLS) + CERTIFICATES GRID
    ========================================================================== */
-.schools-columns-row {
+.ach-layout {
     flex: 1 1 0;
     min-height: 0;
     width: 100%;
     max-width: 1620px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(14px, 1.8vw, 30px);
+    grid-template-columns: clamp(240px, 25vw, 360px) minmax(0, 1fr);
+    gap: clamp(14px, 2vw, 32px);
     align-items: stretch;
     padding-bottom: 4px;
 }
 
-.school-column {
+.ach-edu-col {
     display: flex;
     flex-direction: column;
-    height: 100%;
     min-height: 0;
     min-width: 0;
-    gap: clamp(6px, calc(var(--u) * 0.8), 11px);
 }
 
-.school-col-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-shrink: 0;
-    min-height: clamp(36px, calc(var(--u) * 5.2), 54px);
-}
-
-.school-col-title {
-    font-size: clamp(0.88rem, calc(var(--u) * 2.05), 1.32rem);
+.ach-col-heading {
+    font-size: clamp(1rem, calc(var(--u) * 2.2), 1.45rem);
     font-weight: 800;
     color: var(--text-primary);
-    line-height: 1.15;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: clamp(6px, calc(var(--u) * 0.8), 12px);
+    flex-shrink: 0;
 }
 
-.school-col-logo {
-    width: clamp(34px, calc(var(--u) * 5.2), 50px);
-    height: clamp(34px, calc(var(--u) * 5.2), 50px);
+.ach-edu-list {
+    flex: 0 0 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(6px, calc(var(--u) * 0.9), 12px);
+}
+
+.ach-edu-item {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: clamp(7px, calc(var(--u) * 0.9), 12px) clamp(10px, calc(var(--u) * 1.2), 16px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ach-edu-item:hover {
+    border-color: #334155;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ach-edu-item.active {
+    border-color: var(--neon-pink);
+    background: rgba(255, 42, 133, 0.1);
+}
+
+.ach-edu-logo {
+    width: clamp(32px, calc(var(--u) * 4.6), 44px);
+    height: clamp(32px, calc(var(--u) * 4.6), 44px);
     object-fit: contain;
     border-radius: 50%;
     background: #FFFFFF;
     padding: 3px;
     flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
-.school-showcase-frame {
-    position: relative;
+.ach-edu-dot {
+    width: clamp(32px, calc(var(--u) * 4.6), 44px);
+    height: clamp(32px, calc(var(--u) * 4.6), 44px);
+    border-radius: 50%;
+    background: rgba(255, 42, 133, 0.18);
+    border: 2px solid var(--neon-pink);
+    flex-shrink: 0;
+}
+
+.ach-edu-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ach-edu-info strong {
+    font-size: clamp(0.78rem, calc(var(--u) * 1.65), 1.02rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ach-edu-item.active .ach-edu-info strong {
+    color: var(--neon-pink);
+}
+
+.ach-edu-info span {
+    font-size: clamp(0.68rem, calc(var(--u) * 1.35), 0.85rem);
+    color: var(--text-muted);
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ach-certs-col {
+    flex: 1 1 0;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ach-certs-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(6px, calc(var(--u) * 0.8), 12px);
+    flex-shrink: 0;
+}
+
+.ach-certs-top .ach-col-heading {
+    margin-bottom: 0;
+}
+
+.ach-filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ach-pill {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-dark);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-family: var(--font-body);
+    font-size: clamp(0.72rem, calc(var(--u) * 1.5), 0.92rem);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.ach-pill:hover {
+    color: var(--text-primary);
+    border-color: #475569;
+}
+
+.ach-pill.active {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    color: #FFFFFF;
+}
+
+.ach-certs-grid {
     flex: 1 1 0;
     min-height: 0;
     width: 100%;
-    border: 3px solid #FFFFFF;
-    border-radius: 4px;
-    background: #0D121D;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    align-content: start;
+    gap: clamp(10px, 1.2vw, 18px);
     overflow: hidden;
-    cursor: pointer;
 }
 
-.showcase-slide {
-    position: absolute;
-    inset: 0;
+.ach-cert-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: clamp(8px, calc(var(--u) * 0.9), 12px);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ach-cert-card.hidden-card {
+    display: none;
+}
+
+.ach-cert-card:hover {
+    border-color: var(--neon-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.ach-cert-img {
+    flex: 1 1 0;
+    min-height: 0;
     width: 100%;
-    height: 100%;
-    padding: clamp(8px, calc(var(--u) * 1.1), 14px);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.55s ease, visibility 0.55s ease;
 }
 
-.showcase-slide.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.showcase-slide img {
+.ach-cert-img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 4px;
-    transition: transform 0.35s ease;
+    object-position: center;
+    transition: transform 0.3s ease;
 }
 
-.school-showcase-frame:hover .showcase-slide.active img {
+.ach-cert-card:hover .ach-cert-img img {
     transform: scale(1.04);
 }
 
-.school-meta-caption {
+.ach-cert-caption {
     flex-shrink: 0;
-    text-align: center;
-    min-height: clamp(34px, calc(var(--u) * 4.8), 48px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: opacity 0.35s ease;
+    padding-top: clamp(6px, calc(var(--u) * 0.7), 9px);
 }
 
-.school-meta-caption.fading {
-    opacity: 0.25;
-}
-
-.meta-school-name {
-    font-size: clamp(0.76rem, calc(var(--u) * 1.6), 0.98rem);
+.ach-cert-caption h4 {
+    font-size: clamp(0.78rem, calc(var(--u) * 1.65), 1rem);
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.25;
@@ -638,18 +779,18 @@ body:has(#contact.active-tab) .next-arrow {
     text-overflow: ellipsis;
 }
 
-.meta-year-cat {
-    font-size: clamp(0.74rem, calc(var(--u) * 1.55), 0.95rem);
-    font-weight: 700;
-    color: var(--neon-pink);
+.ach-cert-caption p {
+    font-size: clamp(0.68rem, calc(var(--u) * 1.35), 0.85rem);
+    color: var(--text-muted);
     line-height: 1.25;
+    margin-top: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 /* ==========================================================================
-   FAMILY & FRIENDS SECTION: 3 EQUAL CARDS + ZOOM + DESCRIPTION BELOW
+   FAMILY & FRIENDS SECTION: ORIGINAL 3-CARD LAYOUT + FULL VISIBILITY + ZOOM
    ========================================================================== */
 .ff-grid {
     flex: 1 1 0;
@@ -702,12 +843,23 @@ body:has(#contact.active-tab) .next-arrow {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 20%;
     transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.pos-mom {
+    object-position: 50% 20%;
+}
+
+.pos-siblings {
+    object-position: 50% 22%;
+}
+
+.pos-friends {
+    object-position: 72% 24%;
+}
+
 .ff-card:hover .ff-img-box img {
-    transform: scale(1.07);
+    transform: scale(1.05);
 }
 
 .ff-body {
@@ -1008,9 +1160,24 @@ body:has(#contact.active-tab) .next-arrow {
 }
 
 @media (max-width: 850px) {
-    .schools-columns-row {
+    .ach-layout {
         grid-template-columns: 1fr;
         gap: 10px;
+    }
+
+    .ach-edu-list {
+        flex-direction: row;
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+
+    .ach-edu-item {
+        width: auto;
+        min-width: 170px;
+    }
+
+    .ach-certs-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .ff-grid {
@@ -1031,7 +1198,7 @@ body:has(#contact.active-tab) .next-arrow {
     .hero-text h1 { font-size: clamp(36px, 8vw, 84px); }
     .hero-desc { max-width: 30em; }
     .photo-area { height: auto; }
-    .photo-circle-frame { width: clamp(200px, min(42vh, 52vw), 360px); height: auto; }
+    .photo-circle-frame { width: clamp(190px, min(40vh, 46vw), 320px); max-width: 75vw; height: auto; }
     .contact-wrapper { grid-template-columns: 1fr; }
 }
 
@@ -1054,7 +1221,7 @@ body:has(#contact.active-tab) .next-arrow {
     .hero-text h1 { font-size: clamp(28px, 8.5vw, 42px); }
     .hero-buttons { justify-content: center; }
     .photo-area { height: auto; }
-    .photo-circle-frame { width: clamp(160px, 48vw, 240px); height: auto; }
+    .photo-circle-frame { width: clamp(150px, 42vw, 220px); max-width: 65vw; height: auto; }
 
     .about-main-layout,
     .contact-wrapper {
@@ -1066,6 +1233,12 @@ body:has(#contact.active-tab) .next-arrow {
         height: auto;
         align-items: center;
     }
-    .about-circle-frame { width: clamp(100px, 30vw, 150px); }
+    .about-circle-frame { width: calc(clamp(64px, 20vw, 120px) * var(--fit, 1)); }
+    .about-left-col,
+    .about-right-col { width: 100%; height: auto; }
+    .left-info-card,
+    .profile-bio-card,
+    .skills-main-box { flex: 0 0 auto; }
+    .specs-list { height: auto; }
     .skills-internal-split { gap: var(--gap-m); }
 }
