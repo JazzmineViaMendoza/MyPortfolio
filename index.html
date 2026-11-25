@@ -7,6 +7,11 @@
     <title>Jazzmine Via Mendoza | Multimedia Arts Portfolio</title>
     <meta name="description" content="Official portfolio of Jazzmine Via Chavenia Mendoza, a Multimedia Arts student specializing in visual design, video production, editorial layout, and visual storytelling.">
 
+    <!-- Fancy Monogram Fonts for Certificate Card Backs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+
     <!-- PWA & Theme Settings -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FF2A85">
@@ -16,7 +21,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
 
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css?v=29">
+    <link rel="stylesheet" href="style.css?v=34">
 </head>
 
 <body>
@@ -62,81 +67,82 @@
         </div>
     </section>
 
-    <!-- PERSONAL INFORMATION SECTION -->
+    <!-- PERSONAL INFORMATION SECTION (new layout: one border, partitioned) -->
     <section id="about" class="tab-section">
         <div class="section-header">
-            <span class="section-tag">GET TO KNOW ME</span>
-            <h2>Personal Information</h2>
+            <h2>Personal <span class="highlight-pink">Information</span></h2>
         </div>
-
-        <div class="about-main-layout">
-            <div class="about-left-col">
-                <div class="about-photo-wrapper">
-                    <div class="about-circle-frame">
-                        <img src="profile.jpg" alt="Jazzmine Via Mendoza">
-                    </div>
-                </div>
-
-                <div class="about-card left-info-card">
-                    <ul class="specs-list">
-                        <li><strong>Full Name:</strong> Jazzmine Via Chavenia Mendoza</li>
-                        <li><strong>Birthdate:</strong> January 08, 2006</li>
-                        <li><strong>Civil Status:</strong> Single</li>
-                        <li><strong>Citizenship:</strong> Filipino</li>
-                        <li><strong>Height:</strong> 149.86 cm</li>
-                        <li><strong>Weight:</strong> 47 kg</li>
-                        <li><strong>Religion:</strong> Roman Catholic</li>
-                        <li><strong>Language Spoken:</strong> English, Tagalog</li>
-                        <li><strong>Address:</strong> Triala, Guimba, Nueva Ecija</li>
-                        <li><strong>Contact Number:</strong> 0950-914-3780</li>
-                        <li><strong>Email Address:</strong> jazzminemendoza80@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="about-right-col">
-                <div class="about-card profile-bio-card">
-                    <h3>Personal Profile</h3>
-                    <div class="bio-text">
-                        <p>I'm a 1st Year Multimedia Arts student at the University of the Cordilleras in Baguio City.</p>
-                        <p>I'm currently developing my skills in digital design, visual arts, and multimedia production, with a strong interest in graphic design, creative content, and digital media. I have practical skills in Canva, digital illustration, visual creativity, and creative design, and I'm continuously exploring new tools and techniques to improve my work.</p>
-                        <p>I'm looking for opportunities where I can apply my creativity, gain hands-on experience, collaborate with others, and grow as a multimedia artist and creative professional.</p>
-                    </div>
-                </div>
-
-                <div class="about-card skills-main-box">
-                    <h3 class="skills-main-title">Skills</h3>
-                    <div class="skills-internal-split">
-                        <div class="sub-skill-col">
-                            <h4 class="sub-skill-heading">Tech</h4>
-                            <div class="card-pink-divider"></div>
-                            <ul class="skills-list">
-                                <li>Digital Illustration</li>
-                                <li>Concept Mapping</li>
-                                <li>Vector Art</li>
-                                <li>Manual Drafting</li>
-                                <li>Storyboarding</li>
-                                <li>UI/UX Layout</li>
-                            </ul>
-                        </div>
-                        <div class="vertical-skills-divider"></div>
-                        <div class="sub-skill-col">
-                            <h4 class="sub-skill-heading">Strengths</h4>
-                            <div class="card-pink-divider"></div>
-                            <ul class="skills-list">
-                                <li>Creative Thinking</li>
-                                <li>Attention to Detail</li>
-                                <li>Visual Storytelling</li>
-                                <li>Adaptability</li>
-                            </ul>
-                        </div>
-                    </div>
+    
+        <div class="pi-card">
+    
+            <!-- I. PERSONAL & CONTACT DETAILS -->
+            <div class="pi-block">
+                <h3 class="pi-title">I. Personal &amp; Contact Details</h3>
+                <div class="pi-grid pi-grid-top">
+                    <div class="pi-photo"><img src="profile.jpg" alt="Hazel Mae Pacasi Nabus"></div>
+    
+                    <div class="pi-f c-6"><span>Full Name (Last, First, Middle)</span>Mendoza, Jazzmine Via Chavenia</div>
+                    <div class="pi-f c-3"><span>Date of Birth</span>January 8, 2006</div>
+                    <div class="pi-f c-3"><span>Age / Sex</span>20 yrs old / Female</div>
+    
+                    <div class="pi-f c-6"><span>Place of Birth</span>Nueva Ecija</div>
+                    <div class="pi-f c-3"><span>Marital Status</span>Single</div>
+                    <div class="pi-f c-3"><span>Citizenship</span>Filipino</div>
+    
+                    <div class="pi-f c-3"><span>Ethnicity</span>Tagalog</div>
+                    <div class="pi-f c-3"><span>Religion</span>Roman Catholic</div>
+                    <div class="pi-f c-3"><span>Blood Type</span>O</div>
+                    <div class="pi-f c-3"><span>Height / Weight</span>152 cm / 48 kg</div>
+    
+                    <div class="pi-f c-6"><span>Residential Address</span>Triala, Guimba, Nueva Ecija, Philippines</div>
+                    <div class="pi-f c-3"><span>Mobile Number</span>09509143780</div>
+                    <div class="pi-f c-3"><span>Emergency Contact</span>09984382428</div>
+    
+                    <div class="pi-f c-6"><span>Email Address</span>jazzmineviamendoza80@gmail.com</div>
+                    <div class="pi-f c-6"><span>Languages Spoken</span>English, Tagalog</div>
                 </div>
             </div>
+    
+            <!-- II. ACADEMIC PROFILE & CAREER OBJECTIVE -->
+            <div class="pi-block">
+                <h3 class="pi-title">II. Academic Profile &amp; Career Objective</h3>
+                <div class="pi-grid">
+                    <div class="pi-f c-6"><span>School / University</span>University of the Cordilleras (UC)</div>
+                    <div class="pi-f c-3"><span>Student ID Number</span>24-3520-776</div>
+                    <div class="pi-f c-3"><span>Program &amp; Year Level</span>BMMA - 1st Year</div>
+    
+                    <div class="pi-f c-3"><span>Scholarship</span>CHED - TES Scholar</div>
+                    <div class="pi-f c-4"><span>Work Experience</span>Freelance & Commission Work</div>
+                    <div class="pi-f c-5"><span>Hobbies &amp; Interests</span>Badminton, Playing Online Games, Workout</div>
+    
+                    <div class="pi-f c-12"><span>Career Objective</span>A creative Multimedia Arts student eager to develop artistic and technical skills, gain practical experience, and contribute innovative ideas through design and digital media.
+</div>
+                </div>
+            </div>
+    
+            <!-- III. SKILLS & COMPETENCIES -->
+            <div class="pi-block">
+                <h3 class="pi-title">III. Skills &amp; Competencies</h3>
+                <div class="pi-grid">
+                    <div class="pi-f c-7">
+                        <span>Hard Skills</span>
+                        <div class="pi-tags">
+                            <em>Digital Illustration</em><em>Concept Mapping</em><em>HTML (Aspiring)</em><em>Vector Art</em><em>MS Word</em><em>Manual Drafting</em><em>Storyboarding</em><em>UI/UX Layout</em>
+                        </div>
+                    </div>
+                    <div class="pi-f c-5">
+                        <span>Soft Skills</span>
+                        <div class="pi-tags">
+                            <em>Creative Thinking</em><em>Teamwork</em><em>Patience</em><em>Problem Solving</em><em>Persistence</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
         </div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION (Left 3 Schools + Right Certificates Grid, No Auto-Transition) -->
+    <!-- ACHIEVEMENTS SECTION (Defaults to All Schools + 3D Card Flip with JV Back) -->
     <section id="education" class="tab-section">
         <div class="section-header">
             <span class="section-tag">MILESTONES &amp; DISTINCTIONS</span>
@@ -144,13 +150,29 @@
         </div>
 
         <div class="ach-layout">
-            <!-- Left Column: Education (Only the 3 Schools) -->
+            <!-- Left Column: Education -->
             <aside class="ach-edu-col" aria-label="Education">
                 <h3 class="ach-col-heading">Education</h3>
 
                 <div class="ach-edu-list">
 
-                    <button type="button" class="ach-edu-item active" data-school-filter="olshco">
+                    <button type="button" class="ach-edu-item ach-edu-all active" data-school-filter="all">
+                        <span class="ach-edu-all-icon" aria-hidden="true">&#9776;</span>
+                        <div class="ach-edu-info">
+                            <strong>All Schools</strong>
+                            <span>Every certificate in one view</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="ach-edu-item" data-school-filter="uc">
+                        <img src="logo-uc.png" alt="University of the Cordilleras Logo" class="ach-edu-logo">
+                        <div class="ach-edu-info">
+                            <strong>Present University of the Cordilleras</strong>
+                            <span>College • BSIT 1st Year • Baguio City</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="ach-edu-item" data-school-filter="olshco">
                         <img src="logo-olshco.jpg" alt="OLSHCO Logo" class="ach-edu-logo">
                         <div class="ach-edu-info">
                             <strong>2024 OLSHCO</strong>
@@ -176,7 +198,7 @@
                 </div>
             </aside>
 
-            <!-- Right Column: Certificates + Category Pills + Grid -->
+            <!-- Right Column: Certificates + Category Pills + 3D Flip Grid -->
             <div class="ach-certs-col">
                 <div class="ach-certs-top">
                     <h3 class="ach-col-heading">Certificates</h3>
@@ -187,105 +209,197 @@
                     </div>
                 </div>
 
-                <div class="ach-certs-grid" id="achievementsGrid">
+                <div class="ach-certs-grid all-mode" id="achievementsGrid">
                     <!-- OLSHCO -->
                     <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="With Honors.jpg" alt="Grade 12 Academic Excellence" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Grade 12 Academic Excellence</h4>
-                            <p>OLSHCO • SY 2023–2024 • Academic</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="With Honors.jpg" alt="Grade 12 Academic Excellence" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Grade 12 Academic Excellence</h4>
+                                    <p>OLSHCO • SY 2023–2024 • Academic</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="GR11 Honors.jpg" alt="Grade 11 Honors" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Grade 11 Honors</h4>
-                            <p>OLSHCO • SY 2022–2023 • Academic</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="GR11 Honors.jpg" alt="Grade 11 Honors" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Grade 11 Honors</h4>
+                                    <p>OLSHCO • SY 2022–2023 • Academic</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <article class="ach-cert-card" data-school="olshco" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="Work Immersion.jpg" alt="Work Immersion Completion" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Work Immersion Completion</h4>
-                            <p>OLSHCO • March 2024 • Academic</p>
-                        </div>
-                    </article>
-
-                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="DSPC 2nd.jpg" alt="DSPC 2nd Place TV News Broadcast" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>DSPC 2nd Place TV News Broadcast</h4>
-                            <p>OLSHCO • March 2024 • Extracurricular</p>
-                        </div>
-                    </article>
-
-                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="Technical.png" alt="Best Technical Award" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Best Technical Award</h4>
-                            <p>OLSHCO • March 2024 • Extracurricular</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="Work Immersion.jpg" alt="Work Immersion Completion" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Work Immersion Completion</h4>
+                                    <p>OLSHCO • March 2024 • Academic</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="STEMAZING.png" alt="STEMazing Science Video Editing Champion" decoding="async">
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="DSPC 2nd.jpg" alt="DSPC 2nd Place TV News Broadcast" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>DSPC 2nd Place TV News Broadcast</h4>
+                                    <p>OLSHCO • March 2024 • Extracurricular</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ach-cert-caption">
-                            <h4>STEMazing Video Editing Champion</h4>
-                            <p>OLSHCO • September 2023 • Extracurricular</p>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="Technical.png" alt="Best Technical Award" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Best Technical Award</h4>
+                                    <p>OLSHCO • March 2024 • Extracurricular</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="ach-cert-card" data-school="olshco" data-cat="Extracurricular" tabindex="0" role="button">
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="STEMAZING.png" alt="STEMazing Science Video Editing Champion" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>STEMazing Video Editing Champion</h4>
+                                    <p>OLSHCO • September 2023 • Extracurricular</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <!-- Sto. Domingo National Trade School -->
                     <article class="ach-cert-card" data-school="sdnts" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="Katunayan.jpg" alt="Junior High School Katunayan" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Junior High School Katunayan</h4>
-                            <p>Sto. Domingo National Trade School • July 2022</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="Katunayan.jpg" alt="Junior High School Katunayan" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Junior High School Katunayan</h4>
+                                    <p>Sto. Domingo National Trade School • July 2022</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <article class="ach-cert-card" data-school="sdnts" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="GR10 Honors.jpg" alt="Grade 10 Honors" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Grade 10 Honors</h4>
-                            <p>Sto. Domingo National Trade School • SY 2021–2022</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="GR10 Honors.jpg" alt="Grade 10 Honors" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Grade 10 Honors</h4>
+                                    <p>Sto. Domingo National Trade School • SY 2021–2022</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
 
                     <!-- Triala Elementary School -->
                     <article class="ach-cert-card" data-school="triala" data-cat="Academic" tabindex="0" role="button">
-                        <div class="ach-cert-img">
-                            <img src="Elem Katunayan.jpg" alt="Elementary School Katunayan ng Pagtatapos" decoding="async">
-                        </div>
-                        <div class="ach-cert-caption">
-                            <h4>Elementary Katunayan ng Pagtatapos</h4>
-                            <p>Triala Elementary School • April 2018 • Academic</p>
+                        <div class="ach-cert-inner">
+                            <div class="ach-cert-back" aria-hidden="true">
+                                <div class="jv-crest">
+                                    <span class="jv-monogram">JV</span>
+                                    <span class="jv-sub">JAZZMINE VIA</span>
+                                </div>
+                            </div>
+                            <div class="ach-cert-front">
+                                <div class="ach-cert-img">
+                                    <img src="Elem Katunayan.jpg" alt="Elementary School Katunayan ng Pagtatapos" decoding="async">
+                                </div>
+                                <div class="ach-cert-caption">
+                                    <h4>Elementary Katunayan ng Pagtatapos</h4>
+                                    <p>Triala Elementary School • April 2018 • Academic</p>
+                                </div>
+                            </div>
                         </div>
                     </article>
+
+                    <p class="ach-empty" id="achEmpty" hidden>No certificates added yet for this school.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAMILY & FRIENDS SECTION (Original 3-Card Layout + Full Group Visibility + Zoom) -->
+    <!-- FAMILY & FRIENDS SECTION (Smaller Uniform Cards + Full 3rd Photo Visible + Deck Deal) -->
     <section id="inspiration" class="tab-section">
         <div class="section-header">
             <span class="section-tag">VALUES &amp; MOTIVATION</span>
@@ -399,7 +513,7 @@
     </div>
 
     <!-- Link to external JS -->
-    <script src="script.js?v=29"></script>
+    <script src="script.js?v=32"></script>
 </body>
 
 </html>

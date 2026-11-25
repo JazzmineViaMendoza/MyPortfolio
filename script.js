@@ -18,6 +18,14 @@ function updateArrowVisibility(targetId) {
     }
 }
 
+function replayFamilyDeck() {
+    const inspSection = document.getElementById('inspiration');
+    if (!inspSection) return;
+    inspSection.classList.remove('deck-animate');
+    void inspSection.offsetWidth; // Force reflow so animation replays cleanly
+    inspSection.classList.add('deck-animate');
+}
+
 function switchTab(targetId) {
     document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab'));
     document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
@@ -30,6 +38,19 @@ function switchTab(targetId) {
     document.querySelectorAll(`.nav-link[data-target="${targetId}"]`).forEach(nav => {
         nav.classList.add('active');
     });
+
+    // Always default Achievements to "All Schools" & "All" categories when clicked
+    if (targetId === 'education') {
+        const allSchoolBtn = document.querySelector('.ach-edu-item[data-school-filter="all"]');
+        const allCatBtn = document.querySelector('.ach-pill[data-cat-filter="all"]');
+        if (allCatBtn && !allCatBtn.classList.contains('active')) allCatBtn.click();
+        if (allSchoolBtn) allSchoolBtn.click();
+    }
+
+    // Trigger Mom Spotlight + Deck-of-Cards transition on Family & Friends
+    if (targetId === 'inspiration') {
+        replayFamilyDeck();
+    }
 
     updateArrowVisibility(targetId);
 }
@@ -92,7 +113,7 @@ document.addEventListener('touchend', e => {
 
 updateArrowVisibility('home');
 
-// --- Achievements Filter + Family & Friends Zoom + Lightbox ---
+// --- Achievements Filter + 3D JV Card Flip + Family & Friends Zoom + Lightbox ---
 document.addEventListener('DOMContentLoaded', () => {
     const schoolButtons = Array.from(document.querySelectorAll('.ach-edu-item'));
     const catButtons = Array.from(document.querySelectorAll('.ach-pill'));
@@ -106,19 +127,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const lbClose = document.getElementById('lightboxClose');
     const lbZoomBtn = document.getElementById('lightboxZoomBtn');
 
-    let activeSchool = document.querySelector('.ach-edu-item.active')?.getAttribute('data-school-filter') || 'all';
+    let activeSchool = 'all';
     let activeCat = 'all';
     let lastFocus = null;
     let isMaximized = false;
 
     function applyAchievementFilters() {
+        let visibleIndex = 0;
+
         certCards.forEach(card => {
             const schoolMatch = activeSchool === 'all' || card.getAttribute('data-school') === activeSchool;
             const catMatch = activeCat === 'all' || card.getAttribute('data-cat') === activeCat;
-            card.classList.toggle('hidden-card', !(schoolMatch && catMatch));
+            const isVisible = schoolMatch && catMatch;
+
+            card.classList.toggle('hidden-card', !isVisible);
+            card.classList.remove('cert-flip-in');
+
+            if (isVisible) {
+                card.style.setProperty('--stagger', visibleIndex++);
+                void card.offsetWidth; // Force reflow so 3D flip replays cleanly
+                card.classList.add('cert-flip-in');
+            }
         });
+
+        const grid = document.getElementById('achievementsGrid');
+        if (grid) grid.classList.toggle('all-mode', activeSchool === 'all');
+
+        const emptyMsg = document.getElementById('achEmpty');
+        if (emptyMsg) emptyMsg.hidden = visibleIndex > 0;
     }
 
+    // Ensure "All Schools" is active on initial load
+    schoolButtons.forEach(b => b.classList.toggle('active', b.getAttribute('data-school-filter') === 'all'));
     applyAchievementFilters();
 
     schoolButtons.forEach(btn => {
@@ -261,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (about.scrollHeight > about.clientHeight + 1) return true;
 
         const boxes = about.querySelectorAll(
-            '.about-left-col, .about-right-col, .left-info-card, .profile-bio-card, .skills-main-box, .bio-text, .skills-list'
+            '.about-left-col, .about-right-col, .left-info-card, .profile-bio-card, .skills-main-box, .bio-text, .skills-list, .pi-card'
         );
         for (const el of boxes) {
             if (el.scrollHeight > el.clientHeight + 1) return true;
