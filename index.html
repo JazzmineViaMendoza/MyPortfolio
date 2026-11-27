@@ -21,10 +21,18 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
 
     <!-- Link to external CSS -->
-    <link rel="stylesheet" href="style.css?v=34">
+    <link rel="stylesheet" href="style.css?v=35">
 </head>
 
 <body>
+
+    <!-- LANDING INTRO: split-monogram "clapper" that opens onto the hero -->
+    <div class="intro" id="intro" aria-hidden="true">
+        <div class="intro-half top"><div class="intro-mark"><span>JV</span></div></div>
+        <div class="intro-half bottom"><div class="intro-mark"><span>JV</span></div></div>
+        <div class="intro-line"></div>
+        <div class="intro-sub">JAZZMINE VIA &bull; MULTIMEDIA ARTS</div>
+    </div>
 
     <header>
         <nav class="navbar">
@@ -49,7 +57,10 @@
     <section id="home" class="tab-section active-tab">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Hi, I'm <span class="highlight-pink">JAZZMINE VIA</span></h1>
+                <h1 aria-label="Hi, I'm Jazzmine Via C. Mendoza">
+                    <span class="hi-line" aria-hidden="true">Hi, I'm</span>
+                    <span class="name-line highlight-pink" id="heroName" aria-hidden="true">JAZZMINE VIA C. MENDOZA</span>
+                </h1>
                 <h2>I'm a Creator</h2>
                 <p class="hero-desc">
                     A passionate Multimedia Arts student specializing in digital art, visual storytelling, and creating unique, high-performance web experiences.
@@ -79,7 +90,7 @@
             <div class="pi-block">
                 <h3 class="pi-title">I. Personal &amp; Contact Details</h3>
                 <div class="pi-grid pi-grid-top">
-                    <div class="pi-photo"><img src="profile.jpg" alt="Hazel Mae Pacasi Nabus"></div>
+                    <div class="pi-photo"><img src="profile.jpg" alt="JazzmineViaMendoza"></div>
     
                     <div class="pi-f c-6"><span>Full Name (Last, First, Middle)</span>Mendoza, Jazzmine Via Chavenia</div>
                     <div class="pi-f c-3"><span>Date of Birth</span>January 8, 2006</div>
@@ -419,7 +430,24 @@
                     <h3>My Mom</h3>
                     <p>A proud single mother who raised her children with strength, proving that one mother's love is more than enough.</p>
                 </div>
+                <div class="ff-back" aria-hidden="true"><span class="ff-back-mark">JV</span><span class="ff-back-sub">JAZZMINE VIA</span></div>
             </article>
+
+            <article class="ff-card zoomable-photo"
+                data-title="My Dad"
+                data-meta="Family &amp; Inspiration"
+                tabindex="0"
+                role="button">
+                <div class="ff-img-box">
+                    <img src="dad.png" alt="My Dad" class="pos-dad" decoding="async">
+                </div>
+                <div class="ff-body">
+                    <h3>My Dad</h3>
+                    <p>A hardworking father whose quiet strength and steady support taught me the value of perseverance and respect.</p>
+                </div>
+                <div class="ff-back" aria-hidden="true"><span class="ff-back-mark">JV</span><span class="ff-back-sub">JAZZMINE VIA</span></div>
+            </article>
+
 
             <article class="ff-card zoomable-photo"
                 data-title="My Siblings"
@@ -433,6 +461,7 @@
                     <h3>My Siblings</h3>
                     <p>Middle child of three, surrounded by two siblings who make life more meaningful.</p>
                 </div>
+                <div class="ff-back" aria-hidden="true"><span class="ff-back-mark">JV</span><span class="ff-back-sub">JAZZMINE VIA</span></div>
             </article>
 
             <article class="ff-card zoomable-photo"
@@ -447,6 +476,7 @@
                     <h3>My Friends</h3>
                     <p>My friends are an important part of my journey, bringing support, meaningful experiences, and lasting memories.</p>
                 </div>
+                <div class="ff-back" aria-hidden="true"><span class="ff-back-mark">JV</span><span class="ff-back-sub">JAZZMINE VIA</span></div>
             </article>
         </div>
     </section>
@@ -513,7 +543,7 @@
     </div>
 
     <!-- Link to external JS -->
-    <script src="script.js?v=32"></script>
+    <script src="script.js?v=33"></script>
 </body>
 
 </html>
