@@ -59,7 +59,7 @@ function replayFamilyDeck() {
     const n = cards.length;
     if (!n) return;
 
-    cards.forEach(c => c.getAnimations().forEach(a => a.cancel()));
+    cards.forEach(c => { c.getAnimations({ subtree: true }).forEach(a => a.cancel()); });
 
     const g = grid.getBoundingClientRect();
     const gcx = g.left + g.width / 2;
@@ -116,12 +116,26 @@ function replayFamilyDeck() {
         const last = cleaned[cleaned.length - 1];
         if (last.offset < 1) cleaned.push({ offset: 1, transform: last.transform, easing: 'linear' });
 
-        return card.animate(cleaned, { duration: TOTAL, delay: 260, fill: 'both' });
+        const main = card.animate(cleaned, { duration: TOTAL, delay: 260, fill: 'both' });
+
+        // show the card back until the flip passes edge-on, then show the face
+        const mid = (ds + DEAL_DUR * 0.45) / TOTAL;
+        const vis = (a, b) => [
+            { visibility: a, offset: 0 }, { visibility: a, offset: mid },
+            { visibility: b, offset: mid }, { visibility: b, offset: 1 }
+        ];
+        const opts = { duration: TOTAL, delay: 260, fill: 'both' };
+        const extra = [];
+        card.querySelectorAll('.ff-img-box, .ff-body').forEach(el => extra.push(el.animate(vis('hidden', 'visible'), opts)));
+        const back = card.querySelector('.ff-back');
+        if (back) extra.push(back.animate(vis('visible', 'hidden'), opts));
+        main._extra = extra;
+        return main;
     });
 
     Promise.all(anims.map(a => a.finished.catch(() => null))).then(() => {
         if (anims.some(a => a.playState === 'idle')) return; // cancelled by a newer replay
-        anims.forEach(a => a.cancel());
+        anims.forEach(a => { (a._extra || []).forEach(x => x.cancel()); a.cancel(); });
         cards.forEach(c => { c.style.position = ''; c.style.zIndex = ''; });
         grid.classList.remove('shuffling');
     });
@@ -160,6 +174,7 @@ function showLabel(text) {
     return l;
 }
 
+const HOLD = 1100;
 const runners = {
     // vertical blinds grow up, then fold away downward
     async blinds(swap, o, label) {
@@ -169,15 +184,15 @@ const runners = {
             background: i % 2 ? PINK : DARK, transformOrigin: 'bottom', transform: 'scaleY(0)'
         }));
         await Promise.all(strips.map((s, i) => anim(s, [{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }],
-            { duration: 330, delay: i * 28, easing: ease })));
+            { duration: 460, delay: i * 38, easing: ease })));
         const lab = showLabel(label);
-        lab.animate([{ opacity: 0, transform: 'scale(0.85)' }, { opacity: 1, transform: 'none' }], { duration: 220, fill: 'forwards' });
+        lab.animate([{ opacity: 0, transform: 'scale(0.85)' }, { opacity: 1, transform: 'none' }], { duration: 420, fill: 'forwards' });
         swap();
-        await new Promise(r => setTimeout(r, 260));
+        await new Promise(r => setTimeout(r, HOLD));
         lab.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
         strips.forEach(s => s.style.transformOrigin = 'top');
         await Promise.all(strips.map((s, i) => anim(s, [{ transform: 'scaleY(1)' }, { transform: 'scaleY(0)' }],
-            { duration: 330, delay: (N - 1 - i) * 28, easing: ease })));
+            { duration: 460, delay: (N - 1 - i) * 38, easing: ease })));
     },
 
     // circular iris closes from the click point, then opens back toward it
@@ -187,17 +202,17 @@ const runners = {
         const a = layer({ inset: 0, background: PINK, clipPath: `circle(0px ${at})` });
         const b = layer({ inset: 0, background: DARK, clipPath: `circle(0px ${at})` });
         await Promise.all([
-            anim(a, [{ clipPath: `circle(0px ${at})` }, { clipPath: `circle(${R} ${at})` }], { duration: 560, easing: ease }),
-            anim(b, [{ clipPath: `circle(0px ${at})` }, { clipPath: `circle(${R} ${at})` }], { duration: 560, delay: 110, easing: ease })
+            anim(a, [{ clipPath: `circle(0px ${at})` }, { clipPath: `circle(${R} ${at})` }], { duration: 780, easing: ease }),
+            anim(b, [{ clipPath: `circle(0px ${at})` }, { clipPath: `circle(${R} ${at})` }], { duration: 780, delay: 140, easing: ease })
         ]);
         const lab = showLabel(label);
-        lab.animate([{ opacity: 0, letterSpacing: '0.4em' }, { opacity: 1, letterSpacing: '0.08em' }], { duration: 260, fill: 'forwards' });
+        lab.animate([{ opacity: 0, letterSpacing: '0.4em' }, { opacity: 1, letterSpacing: '0.08em' }], { duration: 420, fill: 'forwards' });
         swap();
-        await new Promise(r => setTimeout(r, 300));
+        await new Promise(r => setTimeout(r, HOLD));
         lab.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
         await Promise.all([
-            anim(b, [{ clipPath: `circle(${R} ${at})` }, { clipPath: `circle(0px ${at})` }], { duration: 520, easing: ease }),
-            anim(a, [{ clipPath: `circle(${R} ${at})` }, { clipPath: `circle(0px ${at})` }], { duration: 520, delay: 90, easing: ease })
+            anim(b, [{ clipPath: `circle(${R} ${at})` }, { clipPath: `circle(0px ${at})` }], { duration: 720, easing: ease }),
+            anim(a, [{ clipPath: `circle(${R} ${at})` }, { clipPath: `circle(0px ${at})` }], { duration: 720, delay: 120, easing: ease })
         ]);
     },
 
@@ -208,19 +223,19 @@ const runners = {
         const R = layer({ right: 0, top: 0, width: '50.2%', height: '100%', background: `linear-gradient(270deg, ${DARK}, #1a0f22)` });
         const seam = layer({ left: '50%', top: 0, width: '3px', height: '100%', background: PINK, boxShadow: `0 0 24px ${PINK}`, transform: 'translateX(-50%) scaleY(0)' });
         await Promise.all([
-            anim(L, [{ transform: 'translateX(-100%)' }, { transform: 'translateX(0)' }], { duration: 520, easing: ease }),
-            anim(R, [{ transform: 'translateX(100%)' }, { transform: 'translateX(0)' }], { duration: 520, easing: ease }),
-            anim(seam, [{ transform: 'translateX(-50%) scaleY(0)' }, { transform: 'translateX(-50%) scaleY(1)' }], { duration: 520, delay: 200, easing: ease })
+            anim(L, [{ transform: 'translateX(-100%)' }, { transform: 'translateX(0)' }], { duration: 720, easing: ease }),
+            anim(R, [{ transform: 'translateX(100%)' }, { transform: 'translateX(0)' }], { duration: 720, easing: ease }),
+            anim(seam, [{ transform: 'translateX(-50%) scaleY(0)' }, { transform: 'translateX(-50%) scaleY(1)' }], { duration: 720, delay: 260, easing: ease })
         ]);
         const lab = showLabel(label);
-        lab.animate([{ opacity: 0, transform: 'scale(1.2)' }, { opacity: 1, transform: 'none' }], { duration: 240, fill: 'forwards' });
+        lab.animate([{ opacity: 0, transform: 'scale(1.2)' }, { opacity: 1, transform: 'none' }], { duration: 420, fill: 'forwards' });
         swap();
-        await new Promise(r => setTimeout(r, 280));
+        await new Promise(r => setTimeout(r, HOLD));
         lab.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
         await Promise.all([
             anim(seam, [{ opacity: 1 }, { opacity: 0 }], { duration: 160 }),
-            anim(L, [{ transform: 'translateX(0)' }, { transform: 'translateX(-100%)' }], { duration: 560, delay: 60, easing: ease }),
-            anim(R, [{ transform: 'translateX(0)' }, { transform: 'translateX(100%)' }], { duration: 560, delay: 60, easing: ease })
+            anim(L, [{ transform: 'translateX(0)' }, { transform: 'translateX(-100%)' }], { duration: 720, delay: 60, easing: ease }),
+            anim(R, [{ transform: 'translateX(0)' }, { transform: 'translateX(100%)' }], { duration: 720, delay: 60, easing: ease })
         ]);
     },
 
@@ -233,15 +248,15 @@ const runners = {
         }));
         await Promise.all(slats.map((s, i) => anim(s,
             [{ transform: `translateX(${i % 2 ? 100 : -100}%)` }, { transform: 'translateX(0)' }],
-            { duration: 380, delay: i * 45, easing: ease })));
+            { duration: 540, delay: i * 60, easing: ease })));
         const lab = showLabel(label);
-        lab.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 240, fill: 'forwards' });
+        lab.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }], { duration: 420, fill: 'forwards' });
         swap();
-        await new Promise(r => setTimeout(r, 280));
+        await new Promise(r => setTimeout(r, HOLD));
         lab.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
         await Promise.all(slats.map((s, i) => anim(s,
             [{ transform: 'translateX(0)' }, { transform: `translateX(${i % 2 ? -100 : 100}%)` }],
-            { duration: 380, delay: i * 45, easing: ease })));
+            { duration: 540, delay: i * 60, easing: ease })));
     },
 
     // slanted pink + dark panels sweep across (used when returning Home)
@@ -250,14 +265,17 @@ const runners = {
         const mk = bg => layer({ top: 0, left: '-30%', width: '160%', height: '100%', background: bg, transform: 'translateX(-110%) skewX(-18deg)' });
         const a = mk(PINK), b = mk(DARK);
         await Promise.all([
-            anim(a, [{ transform: 'translateX(-110%) skewX(-18deg)' }, { transform: 'translateX(0) skewX(-18deg)' }], { duration: 520, easing: ease }),
-            anim(b, [{ transform: 'translateX(-110%) skewX(-18deg)' }, { transform: 'translateX(0) skewX(-18deg)' }], { duration: 520, delay: 110, easing: ease })
+            anim(a, [{ transform: 'translateX(-110%) skewX(-18deg)' }, { transform: 'translateX(0) skewX(-18deg)' }], { duration: 700, easing: ease }),
+            anim(b, [{ transform: 'translateX(-110%) skewX(-18deg)' }, { transform: 'translateX(0) skewX(-18deg)' }], { duration: 700, delay: 140, easing: ease })
         ]);
+        const lab = showLabel(label);
+        lab.animate([{ opacity: 0, transform: 'scale(0.85)' }, { opacity: 1, transform: 'none' }], { duration: 420, fill: 'forwards' });
         swap();
-        await new Promise(r => setTimeout(r, 120));
+        await new Promise(r => setTimeout(r, HOLD));
+        lab.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
         await Promise.all([
-            anim(a, [{ transform: 'translateX(0) skewX(-18deg)' }, { transform: 'translateX(110%) skewX(-18deg)' }], { duration: 520, delay: 90, easing: ease }),
-            anim(b, [{ transform: 'translateX(0) skewX(-18deg)' }, { transform: 'translateX(110%) skewX(-18deg)' }], { duration: 520, easing: ease })
+            anim(a, [{ transform: 'translateX(0) skewX(-18deg)' }, { transform: 'translateX(110%) skewX(-18deg)' }], { duration: 700, delay: 120, easing: ease }),
+            anim(b, [{ transform: 'translateX(0) skewX(-18deg)' }, { transform: 'translateX(110%) skewX(-18deg)' }], { duration: 700, easing: ease })
         ]);
     }
 };
@@ -267,7 +285,7 @@ function setActiveNav(targetId) {
     document.querySelectorAll(`.nav-link[data-target="${targetId}"]`).forEach(nav => nav.classList.add('active'));
 }
 
-function applyTab(targetId) {
+function applyTab(targetId, deferEffects) {
     document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab', 'sec-in'));
     setActiveNav(targetId);
 
@@ -286,7 +304,9 @@ function applyTab(targetId) {
         if (allSchoolBtn) allSchoolBtn.click();
     }
 
-    if (targetId === 'inspiration') replayFamilyDeck();
+    if (deferEffects && targetId === 'education' && targetSection) targetSection.classList.add('ach-wait');
+    if (deferEffects && targetId === 'inspiration' && targetSection) targetSection.classList.add('ff-wait');
+    if (targetId === 'inspiration' && !deferEffects) replayFamilyDeck();
     if (targetId === 'home') replayHero(0.2);
 
     updateArrowVisibility(targetId);
@@ -311,12 +331,26 @@ function switchTab(targetId, origin) {
     setActiveNav(targetId);
 
     const run = runners[TRANSITION_FOR[targetId]] || runners.blinds;
-    run(() => applyTab(targetId), o, label)
+    run(() => applyTab(targetId, true), o, label)
         .catch(() => applyTab(targetId))
         .finally(() => {
             overlay.innerHTML = '';
             document.body.classList.remove('pt-running');
             transitioning = false;
+            // transition is done: now play the section's own effect
+            setTimeout(() => {
+                const edu = document.getElementById('education');
+                if (edu && targetId === 'education') {
+                    edu.classList.remove('ach-wait');
+                    const allBtn = document.querySelector('.ach-edu-item[data-school-filter="all"]');
+                    if (allBtn) allBtn.click(); // replays the 3D card flip
+                }
+                const fam = document.getElementById('inspiration');
+                if (fam && targetId === 'inspiration') {
+                    replayFamilyDeck();
+                    fam.classList.remove('ff-wait');
+                }
+            }, 350);
             setTimeout(() => {
                 const sec = document.getElementById(targetId);
                 if (sec) sec.classList.remove('sec-in');
